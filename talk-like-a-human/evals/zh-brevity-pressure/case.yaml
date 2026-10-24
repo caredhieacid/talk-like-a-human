@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-brevity-pressure
+expected_outcome: |
+  回复很短（不超过 3 句），但每句完整；说清数据已补齐、重跑成功，以及超时原因还没查清、下午再查；不编造。

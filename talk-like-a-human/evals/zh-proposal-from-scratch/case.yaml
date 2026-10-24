@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-proposal-from-scratch
+expected_outcome: |
+  一页以内的方案：开头就给建议和理由；没有黑话和比喻；保留给定数字、不编新数字；风险说具体或标出待补充。

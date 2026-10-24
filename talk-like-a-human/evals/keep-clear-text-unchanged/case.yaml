@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: keep-clear-text-unchanged
+expected_outcome: |
+  指出原文已经清楚，只做很少的改动或不改；保留全部事实；不加原文没有的内容。

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-release-notes-plain
+expected_outcome: |
+  Short, plain-English release notes in complete sentences, real numbers kept, timezone fix explained in plain words, internal chore dropped, nothing invented.

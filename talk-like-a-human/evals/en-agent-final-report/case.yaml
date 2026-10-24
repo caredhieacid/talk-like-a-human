@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-agent-final-report
+expected_outcome: |
+  A short final report that leads with the result, uses complete sentences, says what was and wasn't tested, and has no filler or buzzwords or invented claims.

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: term-drift-in-docs
+expected_outcome: |
+  发现同一个概念在文档里有“工作区/空间/workspace/团队空间”等多种叫法（成员/组员/账号/用户也混用），列出叫法和位置，建议一个标准叫法（比如和代码 Workspace 对应的“工作区”），并建议把定下来的叫法记进术语表；用户要求改文档，所以直接改好再请用户确认叫法；不改 src/models.py 里的代码名；不新增原文没有的事实，自己加的例子要告诉用户。
+context:
+  scaffold_script: place-files.sh

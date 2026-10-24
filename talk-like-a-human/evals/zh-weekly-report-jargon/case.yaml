@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-weekly-report-jargon
+expected_outcome: |
+  改写后的周报没有黑话，保留“可能”“3% 左右”“下周”，不编造原文没有的具体事实；对原文说不清的地方向用户提问或标出来。

@@ -1,0 +1,7 @@
+# 本地测试结果和工具配置，不放进仓库
+talk-like-a-human-workspace/
+.claude/
+talk-like-a-human/evals/results/
+
+.DS_Store
+__pycache__/

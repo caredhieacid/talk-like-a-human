@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-company-announcement
+expected_outcome: |
+  A short, plain announcement that leads with the change and date, states both deadlines as clear actions, and adds no hype or invented facts.

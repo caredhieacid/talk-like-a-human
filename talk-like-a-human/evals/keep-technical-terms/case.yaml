@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: keep-technical-terms
+expected_outcome: |
+  保留技术词和所有数字、名字，改掉“进行了……”“基于……来实现”这类翻译腔，不加原文没有的内容。

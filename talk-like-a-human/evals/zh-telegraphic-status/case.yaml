@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-telegraphic-status
+expected_outcome: |
+  一条用完整句子写的消息：说清谁查了什么、因为缓存没失效所以价格旧、加了 5 分钟过期时间、只在测试环境验证过、请小林确认价格规则后再发布、回滚方法。不新增事实。

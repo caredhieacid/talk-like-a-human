@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: zh-doc-with-glossary
+expected_outcome: |
+  写出 docs/onboarding.md，全文只用术语表里的标准叫法（工作区、成员、项目、管理员），说明用户说的“团队空间”按术语表写成了“工作区”；不把猜的界面细节当事实写，拿不准的用读者看得见的【待确认】标出来；句子完整。
+context:
+  scaffold_script: place-files.sh

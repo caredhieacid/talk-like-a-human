@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: explain-migration-to-pm
+expected_outcome: |
+  一段不懂技术的人能看懂的回复：开头就回答为什么要停机，解释数据库迁移是什么，没有黑话和没解释的技术词，句子完整。
