@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-no-overcorrection
+expected_outcome: |
+  Gives the rewritten release note directly: buzzwords gone, facts kept, no mention of the removed words or of being "buzzword-free", and still reads like a release note.
