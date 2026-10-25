@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-awkward-grammar
+expected_outcome: |
+  改掉缺主语、搭配不当、关联词不配对、指代不清和一逗到底这几处语病；保留全部事实和“约”；看不出“他们”指谁时标出来问，不猜。

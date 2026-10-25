@@ -6,7 +6,7 @@
 
 <h1><img src="assets/logo.svg" alt="" width="34" height="34" align="absmiddle"> Talk Like a Human</h1>
 
-<p><b>Make AI write Chinese and English that people understand on the first read</b><br>Claude Code skill · 中文 + English</p>
+<p><b>Make AI write Chinese and English that people understand on the first read</b><br>Agent Skill · works with Claude Code, Codex, Cursor, GitHub Copilot and other mainstream AI tools · 中文 + English</p>
 
 <p>
 <a href="#install"><img src="https://img.shields.io/badge/Quick%20start-f97316?style=for-the-badge&amp;logo=gnubash&amp;logoColor=white" alt="Quick start"></a>
@@ -15,7 +15,7 @@
 </p>
 
 <p>
-<a href="#install"><img src="https://img.shields.io/badge/Claude%20Code-d97757?style=flat-square&amp;logo=claude&amp;logoColor=white" alt="Claude Code"></a>
+<a href="#install"><img src="https://img.shields.io/badge/Agent%20Skills-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Copilot-4f46e5?style=flat-square" alt="Agent Skills: Claude Code, Codex, Cursor, Copilot"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/MIT%20License-334155?style=flat-square" alt="MIT license"></a>
 <a href="#results"><img src="https://img.shields.io/badge/Self--tested%3A%2052%2F52-16a34a?style=flat-square" alt="Self-tested: 52/52 checks"></a>
 <a href="https://github.com/caredhieacid/talk-like-a-human/stargazers"><img src="https://img.shields.io/github/stars/caredhieacid/talk-like-a-human?style=flat-square&amp;color=f59e0b&amp;logo=github" alt="GitHub stars"></a>
@@ -45,47 +45,80 @@
 
 ## <a id="features"></a><img src="assets/icons/grid.svg" width="22" height="22" alt="" align="absmiddle"> Overview
 
-**Talk Like a Human** is a Chinese and English writing skill for Claude Code, built around **clear expression, factual fidelity and consistent terminology**. Use it to draft or revise chat replies, reports, proposals, docs and commit messages, making text easier to read while preserving its meaning.
+**Talk Like a Human** is a Chinese and English writing skill built around **clear expression, factual fidelity and consistent terminology**. It uses the open Agent Skills format (a folder with a `SKILL.md`), so Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI and other mainstream AI tools can load it directly. Use it to draft or revise chat replies, reports, proposals, docs and commit messages.
 
-AI writing is often hard to read. It is full of buzzwords like "leverage" and "seamless", it invents terms nobody else uses, it drops subjects and linking words to save space, it calls one thing by three different names, and it changes or makes up numbers.
+AI writing is often hard to read. It is full of buzzwords like "leverage" and "seamless", it invents terms nobody else uses, it writes sentences that don't quite parse, it drops subjects and linking words to save space, it calls one thing by three different names, and it changes or makes up numbers. When you point out a problem, it often overcorrects.
 
 <a href="assets/rewrite-actions-en.jpg"><img src="assets/rewrite-actions-en.jpg" alt="Say what people can do: Empower support with order status visibility becomes Let support check order status" width="100%"></a>
 
 - <img src="assets/icons/message.svg" width="18" height="18" alt="" align="absmiddle"> **No buzzwords**: Say what was actually done instead of “leverage” or “synergy”. Technical terms stay.
 - <img src="assets/icons/tag.svg" width="18" height="18" alt="" align="absmiddle"> **No made-up terms**: Use familiar words instead of new terms only the AI understands.
-- <img src="assets/icons/pen.svg" width="18" height="18" alt="" align="absmiddle"> **Natural sentences**: Avoid phrasing that reads like a word-for-word translation.
+- <img src="assets/icons/pen.svg" width="18" height="18" alt="" align="absmiddle"> **Sentences that make sense**: No word-for-word translation feel, no dangling modifiers, no "this" or "it" that could mean two things.
 - <img src="assets/icons/text.svg" width="18" height="18" alt="" align="absmiddle"> **Complete sentences**: Keep the subject and words like “because” and “so”.
 - <img src="assets/icons/link.svg" width="18" height="18" alt="" align="absmiddle"> **One name per thing**: Call the same thing by the same name throughout.
 - <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> **No invented facts**: Keep the original numbers. Label inferences and ask for missing details.
+- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> **No overcorrection**: Once a problem is pointed out, just fix it. No "tomato and egg stir-fry (no Dongpo pork)". [What does that mean?](#dongpo)
+
+### <a id="dongpo"></a>The "Dongpo pork" problem
+
+You ask an AI for tomato and egg stir-fry, and the plate arrives with a slab of Dongpo pork (a braised pork dish) on the side. You say "no pork". The next plate is labeled "tomato and egg stir-fry (no Dongpo pork)", and every later revision reminds you again that there's no pork.
+
+Writing works the same way. Point out one problem and the AI keeps mentioning it in the fixed text, or swings to the opposite extreme:
+
+| Overcorrected (illustrative) | What it should be |
+| --- | --- |
+| Here's a buzzword-free version: Exports now finish in 40 seconds (no "seamless" this time). | Exports now finish in 40 seconds. |
+
+Readers of the final text never saw the earlier mistake, so these notes are just new noise. The skill tells the AI to deliver the fixed text directly: no "(no X)" or "X-free" labels, no "Here's a version without X", and no swinging to the other extreme, such as turning "too formal" into slang or "too long" into fragments.
 
 ## <a id="install"></a><a id="install-and-use"></a><img src="assets/icons/terminal.svg" width="22" height="22" alt="" align="absmiddle"> Quick start
 
 ### Install
 
-With Claude Code and git installed, run these commands in a macOS or Linux terminal:
+The skill uses the Agent Skills format: a folder whose `SKILL.md` holds the rules. Claude Code, Codex, Cursor and many other tools understand this format; they just load it from different folders. First, download the repo:
 
 ```bash
 git clone https://github.com/caredhieacid/talk-like-a-human.git
 cd talk-like-a-human
-mkdir -p ~/.claude/skills
-ln -s "$PWD/talk-like-a-human" ~/.claude/skills/talk-like-a-human
 ```
 
+Then find your tool in the table and link the repo's inner `talk-like-a-human` folder into that folder:
+
+| Tool | Skills folder |
+| --- | --- |
+| Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode, Amp, Goose, Zed, Devin Desktop (formerly Windsurf) | `~/.agents/skills/` |
+| Claude Code | `~/.claude/skills/` |
+| Cline | `~/.cline/skills/` |
+| Kiro | `~/.kiro/skills/` |
+
+For example, for Cursor, Codex and the other tools in the first row, run this in the repo folder:
+
+```bash
+mkdir -p ~/.agents/skills
+ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
+```
+
+For Claude Code, replace both `~/.agents` with `~/.claude`. If you use one tool, that one step is all you need; if you use several, create a link in each folder. `$PWD` means the current folder, so run the command inside the repo.
+
 > [!TIP]
-> The repo contains a folder with the same name, `talk-like-a-human`. That inner folder is the skill itself. The last command creates a symbolic link (a shortcut) to it in `~/.claude/skills/`, so running `git pull` in the repo also updates the skill. If you'd rather not use a link, copy the inner folder into `~/.claude/skills/` instead.
+> With a link, running `git pull` in the repo updates the skill. To use it in one project only, copy or link the folder into that project's `.agents/skills/` (`.claude/skills/` for Claude Code).
+>
+> Tools without skill support can still use it: in Aider, run `aider --read path/to/repo/talk-like-a-human/SKILL.md`; in other tools, add a line to their rules file (such as `AGENTS.md`): "Write everything meant for people according to /full/path/to/repo/talk-like-a-human/SKILL.md." Use the full path.
+
+The folders in the table come from each tool's official docs as of October 2026. We installed and tried it in Claude Code and Codex; Codex loads the skill from `~/.agents/skills/` on its own when asked to rewrite text.
 
 ### Use
 
-Once installed, Claude applies the rules when they fit the writing task. You can also request a rewrite directly in Claude Code:
+Once installed, the AI applies the rules when it writes for people. You can also ask directly:
 
 - "Rewrite this in plain English"
 - "My manager can't follow this report, fix it"
 - "These docs call the same thing different names, make them consistent"
 
-You can also call the skill directly in Claude Code's prompt, for example `/talk-like-a-human rewrite the paragraph above`.
+In tools with slash commands you can call it by name, for example `/talk-like-a-human rewrite the paragraph above` in Claude Code.
 
 > [!NOTE]
-> To use the skill for every reply, add this line to `~/.claude/CLAUDE.md`: `Write everything meant for people according to the talk-like-a-human skill.` Claude Code reads this file at the start of every conversation; create it if it doesn't exist.
+> To use the skill for every reply, add this line to your tool's global instructions file: `Write everything meant for people according to the talk-like-a-human skill.` That's `~/.claude/CLAUDE.md` for Claude Code and `~/.codex/AGENTS.md` for Codex; see your tool's docs for others.
 
 ## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> Examples and evaluation
 
@@ -160,9 +193,9 @@ The message puts back who does what, and the "so" that links cause and effect. T
 
 ### <a id="results"></a><a id="test-results"></a>Test results
 
-[`evals/`](talk-like-a-human/evals/) provides 12 test cases and 52 checks covering writing quality, factual fidelity and consistent terminology. Four cases verify that already-clear text is preserved.
+[`evals/`](talk-like-a-human/evals/) now has 15 test cases and 65 checks covering writing quality, factual fidelity and consistent terminology. Four cases verify that already-clear text is preserved.
 
-The project completed three rounds of comparative evaluation, refining the rules after each of the first two. Each round used Claude Opus 5.5 to run tasks with and without the skill. The table shows self-test results from the third round:
+The first three rounds of comparative evaluation each used Claude Opus 5.5 to run tasks with and without the skill, and the rules were refined after each of the first two. The table shows the third round (12 cases and 52 checks at the time):
 
 | Metric | <img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> With the skill | <img src="assets/icons/minus-circle.svg" width="16" height="16" alt="" align="absmiddle"> Without the skill |
 | --- | :---: | :---: |
@@ -174,9 +207,11 @@ Time and token measurements cover the full process: reading the rules, generatin
 
 **Evaluation setup:** Each test case ran once per configuration in each round. Grading was performed by the same Claude, in the same conversation, that authored the skill.
 
+**Round 4:** this update adds three cases (13 checks in total) for ungrammatical sentences and the "Dongpo pork" problem, each run once with the rules before and after the update. On Claude Opus 5.5 both versions passed all 13 checks, so these three cases show no difference between them. We also tried Codex: in tests with a single message, it didn't reproduce the "Dongpo pork" problem, which tends to show up over several rounds of edits, so there is no test data yet on how much this rule helps.
+
 #### Run the tests yourself
 
-With Claude Code 2.1.269 or later, run these commands from the repo root to reproduce the evaluation. `--scaffold` prepares the sample files required by the tests:
+The test cases use the `claude plugin eval` format. With Claude Code 2.1.269 or later, run the commands below from the repo root to reproduce the evaluation (`--scaffold` prepares the sample files the tests need). With other tools, give a case's `prompt.md` to the AI and check the reply against the files in `graders/`.
 
 ```bash
 cd talk-like-a-human
@@ -185,7 +220,7 @@ claude plugin eval . --allow-tools Write,Edit,Bash --scaffold
 
 ## <a id="how-it-works"></a><a id="how-the-skill-works"></a><img src="assets/icons/workflow.svg" width="22" height="22" alt="" align="absmiddle"> How it works
 
-The skill guides Claude through three steps: establish the facts, write clearly and review the text. Claude identifies the conclusion and supporting facts, drafts the response, then checks wording, sentence structure and factual fidelity:
+The skill guides the AI through three steps: establish the facts, write clearly and review the text. It identifies the conclusion and supporting facts, drafts the response, then checks wording, sentence structure and factual fidelity:
 
 <img src="assets/writing-workflow-v2.jpg" alt="The writing process: establish the facts, write complete sentences, then review wording and fidelity" width="100%">
 
@@ -199,7 +234,7 @@ flowchart LR
     A["Work out what to say<br/>conclusion and facts"] --> B["Write it"]
     B --> C["Go through<br/>the checklist"]
     C --> D{"Long, important document?<br/>e.g. a README over a page"}
-    D -- yes --> E["Claude starts a fresh helper AI<br/>that hasn't seen the conversation;<br/>it reads the text and points out<br/>what's unclear"]
+    D -- yes --> E["A fresh helper AI that hasn't<br/>seen the conversation reads the text<br/>and points out what's unclear"]
     E --> F["Hand it to you"]
     D -- no --> F
 ```
@@ -213,11 +248,13 @@ flowchart LR
 - Is there a made-up term that isn't explained where it first appears?
 - Is there a metaphor where a plain statement would do, or a vague phrase like "related issues" that never says which ones?
 - Is there a sentence that needs a second read?
+- Is there a sentence that doesn't parse: a dangling modifier, a mismatched verb and object, or a "this" or "it" that could mean two things?
 - Did anything get dropped to save words: the subject, "because", or who does what?
 - Is each thing called by one name throughout, and the same name the project already uses?
 - Are there made-up numbers, details or examples, or anything stated more firmly than the source?
 - Does the text mention something the reader hasn't seen, and fail to explain what it is?
 - Is the first sentence the thing the reader most wants to know?
+- Where a fix was requested, did any "(no X)" or "X-free" note get left behind, or did the fix swing into a different problem?
 
 </details>
 
@@ -256,10 +293,10 @@ The Exceptions column lists phrases where an avoided word is fine. Here, "space"
 
 ### Run the check
 
-Then run the name-checking script in your project folder, replacing `GLOSSARY.md` and `docs/` with your own glossary and folders. It needs Python 3 and uses only what comes with Python, so there's nothing extra to install. Here is the output from a sample project:
+Then run the name-checking script in your project folder, replacing `GLOSSARY.md` and `docs/` with your own glossary and folders (and the script path, if you installed the skill elsewhere). It needs Python 3 and uses only what comes with Python, so there's nothing extra to install. Here is the output from a sample project:
 
 ```console
-$ python3 ~/.claude/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md docs/
+$ python3 ~/.agents/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md docs/
 docs/billing.md:1: 用了「space」，统一用「workspace」
 docs/members.md:1: 用了「team space」，统一用「workspace」
 docs/members.md:1: 用了「teammate」，统一用「member」
@@ -300,14 +337,14 @@ Yes. The rules cover English writing and include a dedicated English buzzword li
 
 Tools like [humanizer](https://github.com/blader/humanizer) mainly rewrite text you paste in so that it doesn't read like AI. Some also ban dashes or keep swapping a word for its synonyms.
 
-This skill aims for text people understand on the first read. It covers everything Claude writes, not just text you paste in, and it doesn't use tricks like banning dashes or swapping synonyms, because swapping synonyms makes readers think you mean different things. The skill also includes a name-checking script for whole projects.
+This skill aims for text people understand on the first read. It covers everything the AI writes, not just text you paste in, and it doesn't use tricks like banning dashes or swapping synonyms, because swapping synonyms makes readers think you mean different things. The skill also includes a name-checking script for whole projects.
 
 </details>
 
 <details>
-<summary><b>Which tool is this skill designed for?</b></summary>
+<summary><b>Which tools does it work with?</b></summary>
 
-The project provides installation commands, direct invocation and global configuration for Claude Code. The writing rules use the `SKILL.md` format; adaptations for other tools should follow their skill-loading conventions.
+Any tool that supports Agent Skills (`SKILL.md`), including Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode, Cline and Kiro. See [Quick start](#install) for where to put it. Tools without skill support can reference `SKILL.md` from their rules file.
 
 </details>
 
@@ -318,6 +355,8 @@ Contribute through issues and pull requests:
 - Share real writing tasks and revision examples
 - Expand the Chinese and English wording guides
 - Improve writing rules and test cases
+
+The `main` branch is protected: every change goes through a pull request and needs a maintainer's review and a passing check before it can be merged. See [CONTRIBUTING.md](CONTRIBUTING.md) for why and what reviewers look for.
 
 <img src="assets/icons/bulb.svg" width="16" height="16" alt="" align="absmiddle"> [Share an example](https://github.com/caredhieacid/talk-like-a-human/issues/new) · <img src="assets/icons/issue.svg" width="16" height="16" alt="" align="absmiddle"> [Report a problem](https://github.com/caredhieacid/talk-like-a-human/issues) · <img src="assets/icons/pull-request.svg" width="16" height="16" alt="" align="absmiddle"> [Browse pull requests](https://github.com/caredhieacid/talk-like-a-human/pulls)
 

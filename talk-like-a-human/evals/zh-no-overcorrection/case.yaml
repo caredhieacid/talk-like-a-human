@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-no-overcorrection
+expected_outcome: |
+  直接给出改好的周报：去掉黑话，保留原有事实；正文和开头都不提被删掉的词，不写“（不含黑话）”这类说明；语气仍是正式周报，没有改过头。
