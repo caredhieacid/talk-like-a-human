@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Talk Like a Human</title>
+  <desc id="desc">An orange speech bubble with three clear lines and a check mark.</desc>
+  <rect x="4" y="4" width="120" height="120" rx="34" fill="#FFF7ED"/>
+  <path d="M33 28h62a13 13 0 0 1 13 13v36a13 13 0 0 1-13 13H57l-24 15V90a13 13 0 0 1-13-13V41a13 13 0 0 1 13-13Z" fill="#F97316"/>
+  <path d="M39 47h49M39 61h31M39 75h21" stroke="white" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="93" cy="89" r="23" fill="#172033" stroke="#FFF7ED" stroke-width="5"/>
+  <path d="m83 89 7 7 13-15" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

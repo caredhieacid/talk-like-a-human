@@ -1,72 +1,385 @@
-# 像人一样说话（talk-like-a-human）
+<a id="top"></a>
 
-一个让 AI 说人话的 skill。装上以后，AI 写给人看的文字会更平实、准确，读一遍就懂。适用于 Claude Code 等支持 `SKILL.md` 格式的工具。
+<div align="center">
 
-它主要管这几件事：
+<img src="assets/readme-hero-v2.jpg" alt="将杂乱表达整理成清晰、忠实的文字" width="100%">
 
-- **黑话和空话**：不写“赋能”“闭环”“抓手”“leverage”“seamless”，直接写具体做了什么。
-- **自造词**：不把一句话压成“证据面”“决策压缩”这种只有 AI 自己懂的词。
-- **翻译腔**：不写“对……进行了……”、一长串定语、名词堆在一起的句子。
-- **为了省字硬删词**：要求简洁时也不删主语和“因为”“所以”，不写成电报。
-- **叫法不统一**：大项目里同一个东西只用一个名字，并配了一个检查脚本。
-- **不乱编**：不补原文没有的数字、细节和例子，不把“可能”写成“会”。
+<h1><img src="assets/logo.svg" alt="" width="34" height="34" align="absmiddle"> 像人一样说话</h1>
 
-## 安装
+<p><b>让 AI 写出读一遍就懂的中文和英文</b><br>Claude Code skill · 中文 + English</p>
+
+<p>
+<a href="#install"><img src="https://img.shields.io/badge/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B-f97316?style=for-the-badge&amp;logo=gnubash&amp;logoColor=white" alt="快速开始"></a>
+<a href="#examples"><img src="https://img.shields.io/badge/%E6%95%88%E6%9E%9C%E5%AF%B9%E6%AF%94-7c3aed?style=for-the-badge&amp;logo=readthedocs&amp;logoColor=white" alt="效果对比"></a>
+<a href="#results"><img src="https://img.shields.io/badge/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C-0f766e?style=for-the-badge&amp;logo=checkmarx&amp;logoColor=white" alt="测试结果"></a>
+</p>
+
+<p>
+<a href="#install"><img src="https://img.shields.io/badge/Claude%20Code-d97757?style=flat-square&amp;logo=claude&amp;logoColor=white" alt="Claude Code"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/MIT%20License-334155?style=flat-square" alt="MIT license"></a>
+<a href="#results"><img src="https://img.shields.io/badge/%E8%87%AA%E6%B5%8B%3A%2052%2F52-16a34a?style=flat-square" alt="自测 52/52 条检查通过"></a>
+<a href="https://github.com/caredhieacid/talk-like-a-human/stargazers"><img src="https://img.shields.io/github/stars/caredhieacid/talk-like-a-human?style=flat-square&amp;color=f59e0b&amp;logo=github" alt="GitHub stars"></a>
+<a href="https://github.com/caredhieacid/talk-like-a-human/issues"><img src="https://img.shields.io/github/issues/caredhieacid/talk-like-a-human?style=flat-square&amp;color=0ea5e9&amp;logo=github" alt="GitHub issues"></a>
+</p>
+
+<p><b>中文</b> · <a href="README.en.md">English</a> &nbsp;|&nbsp; <a href="#faq">常见问题</a> · <a href="#contributing">参与贡献</a></p>
+
+<a href="assets/promo-zh.mp4"><img src="assets/promo-zh-preview.webp" alt="宣传片片段：AI 为什么不说人话，以及这个 skill 怎么让 AI 写出读一遍就懂的话" width="100%"></a>
+
+<p><sub>▶ 点击上图观看完整宣传片（102 秒，有配乐）。前半段讲 AI 为什么不说人话，后半段介绍这个 skill 怎么解决。</sub></p>
+
+</div>
+
+<details>
+<summary><b>目录</b></summary>
+
+- [功能概览](#features)
+- [快速开始](#install)
+- [效果与测试](#evidence)
+- [工作原理](#how-it-works)
+- [进阶用法](#glossary)
+- [常见问题](#faq)
+- [参与贡献](#contributing)
+
+</details>
+
+## <a id="features"></a><img src="assets/icons/grid.svg" width="22" height="22" alt="" align="absmiddle"> 功能概览
+
+**像人一样说话**是面向 Claude Code 的中英文写作 skill，专注于**清晰表达、忠实保留事实、统一术语**。适用于聊天回复、周报、方案、文档和代码提交说明，支持从头写作与已有稿件改写，让文字更易读、原意更清楚。
+
+AI 写的东西常常让人读不懂：满是“赋能”“闭环”“leverage”这类听着专业、却说不清具体意思的词，自己造新词，句子像翻译过来的，为了省字把主语删掉，同一个东西前后换好几个名字，还会编出你没给过的数字。
+
+<a href="assets/rewrite-actions-zh.jpg"><img src="assets/rewrite-actions-zh.jpg" alt="把黑话改成具体动作：开放订单状态查询能力，赋能客服团队，改写为客服能自己查订单状态" width="100%"></a>
+
+- <img src="assets/icons/message.svg" width="18" height="18" alt="" align="absmiddle"> **不说黑话**：不写“赋能”“闭环”，直接写具体做了什么。
+- <img src="assets/icons/tag.svg" width="18" height="18" alt="" align="absmiddle"> **不自造词**：不写“证据面”这种只有 AI 自己懂的新词。
+- <img src="assets/icons/pen.svg" width="18" height="18" alt="" align="absmiddle"> **不写翻译腔**：写“清洗了数据”，不写“对数据进行了清洗”。
+- <img src="assets/icons/text.svg" width="18" height="18" alt="" align="absmiddle"> **句子要完整**：不为了省字删掉主语和“因为”“所以”。
+- <img src="assets/icons/link.svg" width="18" height="18" alt="" align="absmiddle"> **叫法统一**：同一个东西，从头到尾只用一个名字。
+- <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> **不乱编**：不补没给过的数字、细节和例子；推断要说明。
+
+## <a id="install"></a><a id="安装和使用"></a><img src="assets/icons/terminal.svg" width="22" height="22" alt="" align="absmiddle"> 快速开始
+
+### 安装
+
+准备好 Claude Code 和 git，在 macOS 或 Linux 终端运行：
 
 ```bash
 git clone https://github.com/caredhieacid/talk-like-a-human.git
+cd talk-like-a-human
 mkdir -p ~/.claude/skills
-ln -s "$PWD/talk-like-a-human/talk-like-a-human" ~/.claude/skills/talk-like-a-human
+ln -s "$PWD/talk-like-a-human" ~/.claude/skills/talk-like-a-human
 ```
 
-AI 只在觉得需要时才会用 skill。如果想让每条回复都按它来写，在 `~/.claude/CLAUDE.md` 里加一句：
+> [!TIP]
+> 仓库里面还有一个也叫 `talk-like-a-human` 的文件夹，它才是 skill 本身。最后一行命令在 `~/.claude/skills/` 里建了一个指向它的快捷方式（符号链接），以后在仓库里运行 `git pull`，skill 会跟着更新。不想用快捷方式，也可以把这个文件夹整个复制到 `~/.claude/skills/`。
 
-```markdown
-写给人看的文字，都按 talk-like-a-human skill 来写。
-```
+### 使用
 
-## 仓库里有什么
+安装后，Claude 会根据写作任务按需应用这套规则。你也可以在 Claude Code 中直接发出改写指令：
 
-| 路径 | 内容 |
-| --- | --- |
-| `talk-like-a-human/SKILL.md` | 主文件：规则、例子和发出前的自查清单 |
-| `talk-like-a-human/references/` | 中英文黑话对照表、术语表模板 |
-| `talk-like-a-human/scripts/check_terms.py` | 检查项目里叫法是否统一的脚本 |
-| `talk-like-a-human/evals/` | 12 个测试用例，其中 4 个专门测“不该改的有没有乱改” |
-| `research/` | 两份调研报告：AI 为什么会这样写，以及同类 skill 是怎么做的 |
+- “帮我把这段改成人话”
+- “这份周报老板看不懂，改一下”
+- “这几篇文档里同一个东西叫法不一样，帮我统一”
 
-## 检查叫法是否统一
+也可以在 Claude Code 的输入框里直接调用这个 skill，比如输入 `/talk-like-a-human 把上面那段改成人话`。
 
-先按 `talk-like-a-human/references/glossary-template.md` 在项目里写一份术语表，然后运行：
+> [!NOTE]
+> 想让每条回复都用这个 skill，在 `~/.claude/CLAUDE.md` 里加一句：`写给人看的文字，都按 talk-like-a-human skill 来写。` 这个文件是 Claude Code 每次对话都会读的个人说明，没有的话新建一个就行。
 
-```bash
-# 统计每种叫法用了几次、在哪些文件
-python3 talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md --count docs/ src/
+## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> 效果与测试
 
-# 找出用了“不要用的叫法”的地方；发现了退出码是 1，可以放进 CI
-python3 talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md docs/ src/
-```
+<a href="assets/rewrite-connections-zh.jpg"><img src="assets/rewrite-connections-zh.jpg" alt="把因果关系写完整：缓存未失效、数据旧，改写为因为缓存没有失效，所以页面上还是旧数据" width="100%"></a>
 
-脚本只用 Python 标准库，不用装依赖。
+### <a id="examples"></a><a id="效果对比"></a>效果对比
 
-## 测试结果
+以下示例来自 Claude Opus 5.5 的测试输出，包含同一任务在启用和未启用 skill 时的对比，以及启用后的完整表达示例。表格内容均摘自回复原文。
 
-12 个测试用例，每个分别在用和不用 skill 的情况下各跑一次，用的模型是 Claude Opus 5.5。最近一轮的结果：
+#### 不把猜测写成事实
 
-| | 用 skill | 不用 skill |
-| --- | --- | --- |
-| 检查项通过 | 52 / 52 | 43 / 52 |
+用户让 Claude 把这段周报改成人话：
+
+> 本周围绕用户增长这一核心抓手，打通了投放与转化的数据链路，初步形成增长闭环。通过对渠道进行精细化运营，赋能销售团队，沉淀了一套可复用的方法论。……
+
+<table>
+<tr>
+<th width="50%"><img src="assets/icons/minus-circle.svg" width="16" height="16" alt="" align="absmiddle"> 不装 skill</th>
+<th width="50%"><img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> 装了 skill</th>
+</tr>
+<tr>
+<td>把广告投放数据和用户转化数据接到了一起。现在能看到每个渠道花了多少钱、带来了多少【注册/付费】用户，可以按效果调整投放。</td>
+<td>本周主要做用户增长，把投放数据和转化数据连了起来，现在能看到【待确认：连起来以后能看到什么】。</td>
+</tr>
+</table>
+
+**对比说明**
+
+- **不装 skill：** 看起来更具体，但“能看到每个渠道花了多少钱”是 Claude 猜的，原文没说。老板读到会当真。
+- **装了 skill：** 原文没说的不编，标出来请你补。
+
+<details>
+<summary><b><img src="assets/icons/search.svg" width="16" height="16" alt="" align="absmiddle"> 更多对比：原始数字、完整句子和方案成本</b></summary>
+
+#### 保留原始数字
+
+更新日志里写的是 `perf: dashboard initial load 4.1s -> 1.3s`，意思是仪表盘（dashboard）第一次打开的时间从 4.1 秒降到了 1.3 秒。用户让 Claude 据此写一段给客户看的更新说明：
+
+<table>
+<tr>
+<th width="50%"><img src="assets/icons/minus-circle.svg" width="16" height="16" alt="" align="absmiddle"> 不装 skill</th>
+<th width="50%"><img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> 装了 skill</th>
+</tr>
+<tr>
+<td>Your dashboard now opens about three times faster.</td>
+<td>The dashboard now loads in 1.3 seconds when you first open it, down from 4.1 seconds.</td>
+</tr>
+</table>
+
+**对比说明**
+
+- **不装 skill：** 换算成“快了约三倍”以后，客户就看不到实际要等几秒了。我们测了三轮，不装 skill 时每一轮都这样写。
+- **装了 skill：** 保留了原来的数字。
+
+#### 句子要完整
+
+用户的要求是：“把我的笔记整理成一条发给产品经理小林的消息，说明昨天报价页显示旧价格的问题。”笔记写得很省字。这个例子只展示装了 skill 的结果：
+
+**用户给的笔记**
+
+> 已查。缓存未失效致价格旧。加 TTL 5min，已在测试环境验。待小林确认新价格规则后发生产。回滚：删 TTL 配置即可。
+
+**<img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> 装了 skill 后写出的消息**
+
+> 小林，昨天报价页显示旧价格的问题我查清楚了，修复已经在测试环境验证过，等你确认新的价格规则后就发布到生产环境。
+>
+> 原因是缓存没有失效，所以报价页显示的还是缓存里的旧价格。我给这个缓存加了 5 分钟的过期时间（TTL），这样价格更新后，报价页最多过 5 分钟就会显示新价格。
+>
+> 你确认好新的价格规则后跟我说一声，我就发布。发布后如果有问题，删掉这条 TTL 配置就能回滚。
+
+笔记里省掉的“我”、“所以”和谁来做什么都补上了。“最多过 5 分钟”这句是 Claude 根据 5 分钟的过期时间推出来的，它在回复末尾单独提醒了用户这一点。这个 skill 允许推断，但要求说明哪些是推出来的。
+
+#### 写方案时不自己编成本
+
+用户让 Claude 写一份给技术负责人的方案，只给了三个数：每年省 30 万元软件授权费、需要 2 个后端开发、做 3 个月。
+
+<table>
+<tr>
+<th width="50%"><img src="assets/icons/minus-circle.svg" width="16" height="16" alt="" align="absmiddle"> 不装 skill</th>
+<th width="50%"><img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> 装了 skill</th>
+</tr>
+<tr>
+<td>上线后每年省下 30 万元授权费，扣除维护成本，预计上线后约 16 个月收回开发投入。</td>
+<td>开发：2 名后端开发，3 个月，人力成本约【待确认：金额】万元。</td>
+</tr>
+</table>
+
+**对比说明**
+
+- **不装 skill：** 每人每月的成本、维护成本和“16 个月收回投入”，都是 Claude 自己估的。
+- **装了 skill：** 没给的成本留空，请你填。
+
+</details>
+
+### <a id="results"></a><a id="测试结果"></a>测试结果
+
+[`evals/`](talk-like-a-human/evals/) 提供 12 个测试用例、52 条检查项，覆盖写作质量、事实保留和术语一致性。其中 4 个用例验证对原本清晰文字的保留能力。
+
+项目完成了三轮对比评测，并在前两轮后根据结果迭代规则。每轮使用 Claude Opus 5.5，分别运行启用和未启用 skill 的两组任务。以下为第三轮自测结果：
+
+| 指标 | <img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> 装了 skill | <img src="assets/icons/minus-circle.svg" width="16" height="16" alt="" align="absmiddle"> 不装 skill |
+| --- | :---: | :---: |
+| 检查项通过 | **52 / 52** | 43 / 52 |
 | 平均用时 | 72 秒 | 37 秒 |
 | 平均 token | 约 6.7 万 | 约 5.6 万 |
 
-不用 skill 时，三轮测试里反复出现的问题有：把“4.1 秒降到 1.3 秒”写成“快了约三倍”，把猜测当成事实写进周报，用“原因：…… 需要你确认：……”这种标签加短语代替句子，以及自己估一套原文没有的成本数字。
+用时和 token 用量统计包含规则读取、文字生成和自查的完整流程。
 
-这份结果仅供参考：每个用例只跑了一次，打分也是由写这个 skill 的 AI 完成的。
+**评测设置：** 每轮每个用例在两种配置下各运行一次；评分由编写 skill 的同一 Claude 在同一次对话中完成。
 
-## English
+#### 复现测试
 
-A skill that makes AI write plain, clear Chinese and English: no buzzwords, no made-up terms, no translationese, no telegraphic shorthand, one name per thing across a project, and no invented numbers or examples. The rules live in `talk-like-a-human/SKILL.md`; `scripts/check_terms.py` checks a project's docs and code against a glossary.
+使用 Claude Code 2.1.269 或更新版本，从仓库根目录运行以下命令复现评测。`--scaffold` 会自动准备测试所需的示例文件：
 
-## 许可
+```bash
+cd talk-like-a-human
+claude plugin eval . --allow-tools Write,Edit,Bash --scaffold
+```
+
+## <a id="how-it-works"></a><a id="这个-skill-是怎么起作用的"></a><img src="assets/icons/workflow.svg" width="22" height="22" alt="" align="absmiddle"> 工作原理
+
+skill 将写作分为三个步骤：理清事实、完成表达、检查复核。Claude 先确定结论与依据，再组织文字，最后检查用词、句子和事实：
+
+<img src="assets/writing-workflow-v2.jpg" alt="写作过程示意：先理清事实，再写出完整句子，最后检查用词和事实" width="100%">
+
+<p align="center"><b>理清事实</b> → <b>完成表达</b> → <b>检查复核</b></p>
+
+<details>
+<summary><b>查看完整流程（含长文档复核）</b></summary>
+
+```mermaid
+flowchart LR
+    A["想清楚要说什么<br/>结论和具体事实"] --> B["写出来"]
+    B --> C["对照自查清单<br/>改一遍"]
+    C --> D{"重要的长文档？<br/>比如超过一页的 README"}
+    D -- 是 --> E["Claude 另开一个没看过前面对话的 AI<br/>读一遍，指出看不懂的地方"]
+    E --> F["交给你"]
+    D -- 否 --> F
+```
+
+</details>
+
+<details>
+<summary><b>自查清单</b></summary>
+
+- 有没有读者要猜意思的词？把难懂的词换成另一个同样空泛的词，也算没改好。
+- 有没有自己造的、第一次出现却没解释的词？
+- 有没有用比喻代替直说，或者“相关问题”“涉及多个模块”这种没说具体是什么的地方？
+- 有没有读两遍才懂的句子？比如“对……进行……”，或者一长串修饰语、几个名词挤在一起（“用户权限变更审批流程优化方案”）。
+- 有没有为了省字删掉主语、“因为”“所以”，或者没写清谁来做？
+- 同一个东西是不是从头到尾一个叫法，而且和项目里已有的叫法一致？
+- 有没有编出来的数字、细节和例子，或者比原文说得更肯定的地方？
+- 有没有提到读者没见过的东西，却没交代它是什么？
+- 第一句话是不是读者最想知道的？
+
+</details>
+
+完整规则见 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。黑话和直白说法的对照表（中文、英文各一份）在 [`references/`](talk-like-a-human/references/) 文件夹里。
+
+### <a id="research"></a><a id="为什么-ai-会这样写"></a>为什么 AI 会这样写
+
+AI 并不是不会写大白话，而是训练方式和平时的用法，让它养成了这些习惯：
+
+| 毛病 | 主要原因 |
+| --- | --- |
+| 黑话多、句子长 | 训练时，给回答打分的人常常挑更长、更正式、听起来更专业的那个 |
+| 套话多 | 训练让模型越来越爱用最常见的说法 |
+| 中文像翻译过来的 | 中文训练材料比英文少得多，不少是从英文翻译过来的 |
+| 为了省字删掉主语 | 用户和软件常要求 AI“简洁”“少用字”，最省事的做法就是删主语和“因为”“所以” |
+| 同一个东西换着叫 | AI 记不住上一次对话说过什么；一次对话太长，也会忘掉前面定好的叫法 |
+
+每条原因的证据和出处见 [`research/why-ai-writes-this-way.md`](research/why-ai-writes-this-way.md)。同类 skill 和工具的调研见 [`research/similar-skills.md`](research/similar-skills.md)。
+
+## <a id="glossary"></a><a id="大项目检查叫法是否统一"></a><img src="assets/icons/book.svg" width="22" height="22" alt="" align="absmiddle"> 进阶：统一项目术语
+
+内置术语检查脚本，按项目术语表检查文档和代码中的叫法，定位不一致之处，并支持接入 CI 自动检查。
+
+### 准备术语表
+
+先在你的项目里写一份术语表，规定每个东西叫什么（模板见 [`glossary-template.md`](talk-like-a-human/references/glossary-template.md)）：
+
+```markdown
+| 标准叫法 | 不要用的叫法 | 例外 |
+| --- | --- | --- |
+| 工作区 | 空间、团队空间、workspace | 存储空间 |
+| 成员 | 组员、账号 | 账号密码 |
+```
+
+“例外”一栏写的是正常用法，比如“存储空间”里的“空间”不算叫错，脚本不会报。
+
+### 运行检查
+
+然后在你的项目文件夹里运行检查脚本，把 `GLOSSARY.md` 和 `docs/` 换成你的术语表和文档目录。脚本需要 Python 3，只用 Python 自带的功能，不用另外安装东西。下面是在一个示例项目里运行的结果：
+
+```console
+$ python3 ~/.claude/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md docs/
+docs/billing.md:1: 用了「空间」，统一用「工作区」
+docs/billing.md:2: 用了「账号」，统一用「成员」
+docs/members.md:1: 用了「团队空间」，统一用「工作区」
+docs/members.md:1: 用了「组员」，统一用「成员」
+叫法不统一 4 处
+```
+
+发现不统一的叫法时，脚本会以失败状态退出（退出码 1）。所以可以把它放进提交代码时的自动检查（CI），有人写错叫法就会报错。
+
+### 统计不同叫法
+
+使用 `--count` 统计每种叫法的出现次数和所在文件，为统一项目术语提供依据：
+
+```console
+$ python3 ~/.claude/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md --count docs/
+■ 工作区
+    工作区（标准叫法）：1 次，在 docs/billing.md
+    空间：1 次，在 docs/billing.md
+    团队空间：1 次，在 docs/members.md
+    workspace：0 次
+■ 成员
+    成员（标准叫法）：0 次
+    组员：1 次，在 docs/members.md
+    账号：1 次，在 docs/billing.md
+```
+
+## <a id="faq"></a><a id="常见问题"></a><img src="assets/icons/help.svg" width="22" height="22" alt="" align="absmiddle"> 常见问题
+
+<details>
+<summary><b>会把专业术语换成大白话吗？</b></summary>
+
+不会。“缓存”“回滚”“幂等”这类意思明确的术语会保留。只有写给不懂技术的人看时，才在术语第一次出现的地方加一句解释。测试里有一个用例专门检查这一点：给后端同事的设计说明改完以后，术语和数字一个都不能少。
+
+</details>
+
+<details>
+<summary><b>怎样控制回复篇幅？</b></summary>
+
+以表达完整、阅读顺畅为标准：简略笔记会补齐必要的主语和因果关系，冗长文字会删去客套和重复。篇幅由内容决定，语气和专业程度与读者及使用场景保持一致。
+
+</details>
+
+<details>
+<summary><b>和“去 AI 味”的工具有什么不同？</b></summary>
+
+humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主要改你贴进去的稿子，目标是让文字看起来不像 AI 写的。有些还会禁止用破折号，或者把同一个词轮流换成近义词。
+
+这个 skill 的目标是让人读一遍就懂。它管的是 Claude 写的所有文字，不只是改你贴进来的稿子；也不靠禁破折号、换近义词这类办法，因为换近义词反而会让读者以为说的是不同的东西。另外，这个 skill 还带了检查脚本，能检查整个项目的叫法是否统一。
+
+</details>
+
+<details>
+<summary><b>这个 skill 面向哪些工具？</b></summary>
+
+本项目面向 Claude Code，提供安装命令、直接调用和全局配置方式。写作规则采用 `SKILL.md` 格式；迁移到其他工具时，可参考目标工具的 skill 加载规范。
+
+</details>
+
+## <a id="contributing"></a><a id="参与改进"></a><img src="assets/icons/users.svg" width="22" height="22" alt="" align="absmiddle"> 参与贡献
+
+欢迎通过 issue 和 PR 参与项目：
+
+- 分享真实写作场景与改写案例
+- 补充中英文用词对照
+- 改进写作规则与测试用例
+
+<img src="assets/icons/bulb.svg" width="16" height="16" alt="" align="absmiddle"> [分享例子](https://github.com/caredhieacid/talk-like-a-human/issues/new) · <img src="assets/icons/issue.svg" width="16" height="16" alt="" align="absmiddle"> [反馈问题](https://github.com/caredhieacid/talk-like-a-human/issues) · <img src="assets/icons/pull-request.svg" width="16" height="16" alt="" align="absmiddle"> [查看 PR](https://github.com/caredhieacid/talk-like-a-human/pulls)
+
+<details>
+<summary><b>仓库里有什么</b></summary>
+
+```text
+talk-like-a-human/
+├── talk-like-a-human/          # skill 文件夹，安装的就是它
+│   ├── SKILL.md                # 规则、例子和自查清单
+│   ├── references/             # 中英文黑话对照表、术语表模板
+│   ├── scripts/check_terms.py  # 检查叫法是否统一的脚本
+│   └── evals/                  # 12 个测试用例
+├── research/                   # 两份调研报告
+└── assets/                     # README 用的图片
+```
+
+</details>
+
+### <a id="stars"></a><a id="star-历史"></a>Star 历史
+
+<div align="center">
+
+如果这个 skill 对你有用，欢迎点个 <img src="assets/icons/star.svg" width="16" height="16" alt="Star" align="absmiddle">，让更多人找到它。
+
+<a href="https://star-history.com/#caredhieacid/talk-like-a-human&Date">
+  <img src="https://api.star-history.com/svg?repos=caredhieacid/talk-like-a-human&type=Date" alt="Star 数随时间的变化" width="600">
+</a>
+
+</div>
+
+### <a id="license"></a><a id="许可"></a>许可
 
 [MIT](LICENSE)
+
+<p align="center"><a href="#top">回到顶部</a></p>
