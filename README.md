@@ -48,7 +48,7 @@
 
 AI 写的东西常常让人读不懂：满是“赋能”“闭环”这类说不清具体意思的词，句子像翻译过来的，为了省字把主语删掉，同一个东西前后换好几个名字，还会编出你没给过的数字。
 
-**像人一样说话**是一套写作规则，中文和英文都管。它是一个带 `SKILL.md` 的文件夹，这种格式叫 Agent Skills，Claude Code、Codex、Cursor、GitHub Copilot、Gemini CLI 等工具都能直接加载。装上以后，AI 写聊天回复、周报、文档、commit message 时会按这套规则写；你也可以让它改已有的稿子。
+**像人一样说话**是一套写作规则，中文和英文都管。它是一个带 `SKILL.md` 的文件夹，这种格式叫 Agent Skills，Claude Code、Codex、Cursor、GitHub Copilot、Gemini CLI 等工具都能直接加载。装上以后，AI 写聊天回复、周报、文档，以及写代码时顺带写的注释、commit message、PR 描述和报错信息，都会按这套规则写；你也可以让它改已有的稿子。
 
 <a href="assets/rewrite-actions-zh.jpg"><img src="assets/rewrite-actions-zh.jpg" alt="把黑话改成具体动作：开放订单状态查询能力，赋能客服团队，改写为客服能自己查订单状态" width="100%"></a>
 
@@ -61,7 +61,9 @@ AI 写的东西常常让人读不懂：满是“赋能”“闭环”这类说�
 - <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> 只写有根据的事。原文的数字原样保留，没给的数字和细节不编，推出来的会说明。
 - <img src="assets/icons/check-circle.svg" width="18" height="18" alt="" align="absmiddle"> 只留读者用得上的提醒。真正的不确定和风险写具体，只为给自己留后路的话删掉。[什么是防御性写法？](#defensive)
 - <img src="assets/icons/minus-circle.svg" width="18" height="18" alt="" align="absmiddle"> 去掉 AI 腔。“这不是……而是……”“这一点非常重要”这样的写法，读者一眼就能认出是 AI 写的，换成具体内容。
-- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> 指出问题后直接给改好的版本，不在里面注明“（没有××）”，也不改到另一个极端。[什么是“东坡肉”问题？](#dongpo)
+- <img src="assets/icons/search.svg" width="18" height="18" alt="" align="absmiddle"> 不把话塞进括号。补充说明、免责和改动记录写成句子，或者删掉；缩写全称、单位这类短信息照常留。
+- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> 不矫枉过正。指出问题后直接给改好的版本，不在里面注明“（没有××）”，也不改到另一个极端。[什么是矫枉过正？](#overcorrection)
+- <img src="assets/icons/terminal.svg" width="18" height="18" alt="" align="absmiddle"> 写代码时也一样。注释写为什么，不留改动记录；commit 说清改了什么、为什么；PR 写怎么验证的、哪些没测；报错说清下一步怎么办。
 
 ## <a id="install"></a><a id="安装和使用"></a><img src="assets/icons/terminal.svg" width="22" height="22" alt="" align="absmiddle"> 快速开始
 
@@ -110,7 +112,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 支持斜杠命令的工具可以直接点名，比如在 Claude Code 里输入 `/talk-like-a-human 把上面那段改成人话`。
 
 > [!NOTE]
-> AI 不一定每次都会自己加载。我们测试时，Codex 写任务完成后的汇报，3 次都没有加载。想让每条回复都用上，在工具的全局说明文件里加一句：`写给人看的文字，都按 talk-like-a-human skill 来写。` Claude Code 是 `~/.claude/CLAUDE.md`，Codex 是 `~/.codex/AGENTS.md`，其他工具见各自的文档。
+> AI 不一定每次都会自己加载。之前的测试里，Codex 写任务完成后的汇报，3 次都没有加载；把写代码时的文字写进 skill 的描述以后，一个没提写作的修 bug 任务，3 次都加载了。想让每条回复都用上，在工具的全局说明文件里加一句：`写给人看的文字，包括注释、commit message 和 PR 描述，都按 talk-like-a-human skill 来写。` Claude Code 是 `~/.claude/CLAUDE.md`，Codex 是 `~/.codex/AGENTS.md`，其他工具见各自的文档。
 
 ## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> 效果与测试
 
@@ -198,16 +200,20 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 
 ### <a id="results"></a><a id="测试结果"></a>测试结果
 
-[`evals/`](talk-like-a-human/evals/) 里有 21 个测试用例、89 条检查项，其中 6 个是英文的。每个用例在两种配置下各跑一次，再由编写 skill 的同一个 Claude 按检查项评分，所以下面是自测结果。前两轮用来修改规则，表里从第 3 轮开始；第 4、5 轮的对照组是不含这一轮新规则的上一版。
+[`evals/`](talk-like-a-human/evals/) 里有 28 个测试用例、117 条检查项，其中 9 个是英文的。前 5 轮由编写 skill 的同一个 Claude 按检查项评分；第 6 轮是盲评，回答打乱后交给没参与测试的子代理评分。这些都是自测结果。前两轮用来修改规则，表里从第 3 轮开始；第 4、5、6 轮的对照组是不含这一轮新规则的上一版。
 
 | 轮次 | 测什么 | 模型 | 对照组 | 装了 skill |
 | --- | --- | --- | :---: | :---: |
 | 第 3 轮 | 12 个基础用例：用词、句子、事实、叫法 | Claude Opus 5.5 | 不装：43 / 52 | **52 / 52** |
-| 第 4 轮 | 3 个用例：语病、“东坡肉” | Claude Opus 5.5 | 上一版：13 / 13 | 13 / 13 |
+| 第 4 轮 | 3 个用例：语病、矫枉过正 | Claude Opus 5.5 | 上一版：13 / 13 | 13 / 13 |
 | 第 5 轮 | 6 个用例：防御性写法、AI 腔 | Claude Opus 5.5 | 上一版：24 / 24 | 24 / 24 |
 | 第 5 轮 | LinkedIn 发布帖，跑 3 次 | Codex | 不装：3 次分别得 2、3、3 分（满分 4） | **3 次都全部通过** |
+| 第 6 轮 | 7 个用例：括号、注释、commit、PR、报错 | Claude Opus 5.5 | 上一版：26 / 28 | 26 / 28 |
+| 第 6 轮 | 同样 7 个用例，每个跑 2 次 | Codex | 不装：47 / 56；上一版：52 / 56 | **55 / 56** |
 
-第 4、5 轮新加的规则在 Claude 上还没测出效果，因为上一版规则也能全部通过。Codex 上差别明显，不装 skill 时，3 篇发布帖的结尾都是“Ideas don't wait for a connection”这类口号或“excited to”。
+第 4、5、6 轮新加的规则在 Claude 上还没测出效果，因为上一版规则已经接近全部通过。Codex 上差别明显：不装 skill 时，3 篇发布帖的结尾都是“Ideas don't wait for a connection”这类口号或“excited to”；第 6 轮里 PR 描述从 4 / 8 升到 8 / 8，commit message 从 6 / 8 升到 8 / 8。
+
+括号这条规则没有测出效果：把要点写成汇报时，不装 skill 的版本也很少用括号。这条来自我们在实际回复里看到的情况，没有测量。
 
 第 3 轮里，装了 skill 平均每个用例 72 秒、约 6.7 万 token，不装是 37 秒、约 5.6 万 token。多出来的是读规则和自查的时间。
 
@@ -246,7 +252,7 @@ AI 动笔前先想清楚结论和具体事实，写完再对照自查清单改�
 
 <p align="center"><b>想清楚</b> → <b>写出来</b> → <b>对照清单改一遍</b></p>
 
-完整规则和自查清单在 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。[`references/`](talk-like-a-human/references/) 里有中英文黑话对照表，以及防御性写法和 AI 腔的完整清单，AI 改稿或拿不准时才去查。
+完整规则和自查清单在 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。[`references/`](talk-like-a-human/references/) 里有中英文黑话对照表、防御性写法和 AI 腔的完整清单，以及注释、commit、PR、报错这些开发文字的写法，AI 需要时才去查。
 
 ### <a id="defensive"></a>什么是防御性写法
 
@@ -258,17 +264,17 @@ AI 动笔前先想清楚结论和具体事实，写完再对照自查清单改�
 
 对每句提醒，skill 让 AI 先问：删掉它，读者会少知道什么吗？会，就像表格里“应该的写法”那样写具体；不会，就删掉。
 
-### <a id="dongpo"></a>什么是“东坡肉”问题
+### <a id="overcorrection"></a><a id="dongpo"></a>什么是矫枉过正
 
-让 AI 做一道西红柿炒鸡蛋，它多放了一块东坡肉。你说“别放东坡肉”，下一盘端上来的是“西红柿炒鸡蛋（没有东坡肉）”，之后每改一次，都要再强调一句“不含东坡肉”。
+AI 被指出问题后，常常改过了头。一种是改完了还在说自己改过：让它做西红柿炒鸡蛋，它多放了一块东坡肉；你说别放，下一盘端上来的是“西红柿炒鸡蛋（没有东坡肉）”，之后每改一次，都要再强调一句“不含东坡肉”。
 
-写文字也会这样：
+写文字也会这样，而且这类说明常常塞在括号里：
 
 | 改过头的写法（示意） | 应该的写法 |
 | --- | --- |
 | 以下是去掉黑话的版本：本周我们把投放数据和转化数据连了起来（没有使用“打通”“闭环”等说法）。 | 本周我们把投放数据和转化数据连了起来。 |
 
-读最终版本的人根本不知道之前出过什么问题，括号里的说明只是新的噪音。另一种改过头是走到反面：嫌太正式就改成网络口语，嫌太长就连主语也删了。
+读最终版本的人根本不知道之前出过什么问题，括号里的说明只是新的噪音。另一种是走到反面：嫌太正式就改成网络口语，嫌太长就连主语也删了。
 
 ## <a id="glossary"></a><a id="大项目检查叫法是否统一"></a><img src="assets/icons/book.svg" width="22" height="22" alt="" align="absmiddle"> 进阶：检查项目里的叫法
 
@@ -388,7 +394,7 @@ talk-like-a-human/
 │   ├── SKILL.md                # 规则、例子和自查清单
 │   ├── references/             # 中英文黑话对照表、防御性写法和 AI 腔清单、术语表模板
 │   ├── scripts/check_terms.py  # 检查叫法是否统一的脚本
-│   └── evals/                  # 21 个测试用例
+│   └── evals/                  # 28 个测试用例
 ├── research/                   # 两份调研报告
 ├── assets/                     # README 用的图片
 ├── .github/                    # 自动检查、CODEOWNERS、PR 模板

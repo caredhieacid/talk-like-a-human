@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-no-bracket-notes
+expected_outcome: |
+  把要点写成完整的句子。顺带的改动、前后对比、上线条件都写进句子里，不塞进括号。数字和没测的部分都保留。

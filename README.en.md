@@ -48,7 +48,7 @@
 
 AI writing is often hard to read. It is full of words like "leverage" and "seamless" that never say what actually happened, its sentences don't quite parse, it drops subjects to save space, it calls one thing by three different names, and it makes up numbers you never gave it.
 
-**Talk Like a Human** is a set of writing rules for English and Chinese. It is a folder with a `SKILL.md`, in the Agent Skills format that many AI tools share, so Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI and others can load it directly. Once it's installed, the AI follows these rules when it writes chat replies, reports, docs and commit messages, and you can ask it to revise existing text.
+**Talk Like a Human** is a set of writing rules for English and Chinese. It is a folder with a `SKILL.md`, in the Agent Skills format that many AI tools share, so Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI and others can load it directly. Once it's installed, the AI follows these rules when it writes chat replies, reports and docs, and also the comments, commit messages, PR descriptions and error messages it writes while coding. You can also ask it to revise existing text.
 
 <a href="assets/rewrite-actions-en.jpg"><img src="assets/rewrite-actions-en.jpg" alt="Say what people can do: Empower support with order status visibility becomes Let support check order status" width="100%"></a>
 
@@ -61,7 +61,9 @@ With the skill, the AI writes like this:
 - <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> Sticks to the facts it has. Original numbers stay as they are, missing details aren't invented, and inferences are labeled.
 - <img src="assets/icons/check-circle.svg" width="18" height="18" alt="" align="absmiddle"> Keeps only warnings the reader can use. Real uncertainty and risks are stated specifically; lines written only to cover the writer go. [What is defensive writing?](#defensive)
 - <img src="assets/icons/minus-circle.svg" width="18" height="18" alt="" align="absmiddle"> Drops the AI tone. Lines like "It's not just X, it's Y" or "Here's why this matters" give text away as AI-written, so it says the specific thing instead.
-- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> Gives you the fixed version when you point out a problem, without notes like "(no X)" and without swinging to the opposite extreme. [What is the "Dongpo pork" problem?](#dongpo)
+- <img src="assets/icons/search.svg" width="18" height="18" alt="" align="absmiddle"> Keeps asides out of parentheses. Extra notes, disclaimers and edit records become sentences or go away; short facts like the full form of an abbreviation or a unit stay.
+- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> Doesn't overcorrect. When you point out a problem you get the fixed version, without notes like "(no X)" and without a swing to the opposite extreme. [What is overcorrection?](#overcorrection)
+- <img src="assets/icons/terminal.svg" width="18" height="18" alt="" align="absmiddle"> Works the same way in code. Comments say why and carry no edit history, commits say what changed and why, PRs say how it was checked and what wasn't tested, and errors say what to do next.
 
 ## <a id="install"></a><a id="install-and-use"></a><img src="assets/icons/terminal.svg" width="22" height="22" alt="" align="absmiddle"> Quick start
 
@@ -110,7 +112,7 @@ Once installed, the AI applies the rules when it decides they're relevant. You c
 In tools with slash commands you can call it by name, for example `/talk-like-a-human rewrite the paragraph above` in Claude Code.
 
 > [!NOTE]
-> The AI doesn't always load the skill on its own. In our tests, Codex didn't load it in any of 3 end-of-task reports. To use it for every reply, add this line to your tool's global instructions file: `Write everything meant for people according to the talk-like-a-human skill.` That's `~/.claude/CLAUDE.md` for Claude Code and `~/.codex/AGENTS.md` for Codex; see your tool's docs for others.
+> The AI doesn't always load the skill on its own. In earlier tests, Codex didn't load it in any of 3 end-of-task reports. After we added text written while coding to the skill's description, it loaded the skill in all 3 runs of a bug-fix task that never mentioned writing. To use it for every reply, add this line to your tool's global instructions file: `Write everything meant for people, including comments, commit messages and PR descriptions, according to the talk-like-a-human skill.` That's `~/.claude/CLAUDE.md` for Claude Code and `~/.codex/AGENTS.md` for Codex; see your tool's docs for others.
 
 ## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> Examples and evaluation
 
@@ -179,16 +181,20 @@ The message puts back who does what, and the "so" that links cause and effect. "
 
 ### <a id="results"></a><a id="test-results"></a>Test results
 
-[`evals/`](talk-like-a-human/evals/) has 21 test cases and 89 checks; 6 of the cases are in English. Each case ran once per configuration, and the same Claude that wrote the skill graded the replies against the checks, so these are self-reported results. The first two rounds were used to revise the rules, so the table starts at round 3; in rounds 4 and 5, the comparison is the previous version of the rules, without that round's additions.
+[`evals/`](talk-like-a-human/evals/) has 28 test cases and 117 checks; 9 of the cases are in English. In the first five rounds, the same Claude that wrote the skill graded the replies against the checks. Round 6 was graded blind: answers were shuffled and graded by a subagent that took no part in the runs. All of these are self-reported results. The first two rounds were used to revise the rules, so the table starts at round 3; in rounds 4, 5 and 6, the comparison is the previous version of the rules, without that round's additions.
 
 | Round | What it tests | Model | Comparison | With the skill |
 | --- | --- | --- | :---: | :---: |
 | 3 | 12 core cases: wording, sentences, facts, names | Claude Opus 5.5 | Without: 43 / 52 | **52 / 52** |
-| 4 | 3 cases: broken sentences, "Dongpo pork" | Claude Opus 5.5 | Previous version: 13 / 13 | 13 / 13 |
+| 4 | 3 cases: broken sentences, overcorrection | Claude Opus 5.5 | Previous version: 13 / 13 | 13 / 13 |
 | 5 | 6 cases: defensive writing, AI tone | Claude Opus 5.5 | Previous version: 24 / 24 | 24 / 24 |
 | 5 | LinkedIn launch post, 3 runs | Codex | Without: 2, 3 and 3 out of 4 | **All 3 passed** |
+| 6 | 7 cases: asides, comments, commits, PRs, errors | Claude Opus 5.5 | Previous version: 26 / 28 | 26 / 28 |
+| 6 | Same 7 cases, 2 runs each | Codex | Without: 47 / 56; previous version: 52 / 56 | **55 / 56** |
 
-The rules added in rounds 4 and 5 haven't shown an effect on Claude yet, because the previous version already passes those cases. On Codex the difference is clear: without the skill, all 3 launch posts ended on a slogan such as "Ideas don't wait for a connection" or on "excited to".
+The rules added in rounds 4, 5 and 6 haven't shown an effect on Claude yet, because the previous version already passes nearly all of those cases. On Codex the difference is clear: without the skill, all 3 launch posts ended on a slogan such as "Ideas don't wait for a connection" or on "excited to", and in round 6 PR descriptions went from 4 / 8 to 8 / 8 and commit messages from 6 / 8 to 8 / 8.
+
+The rule about parentheses showed no effect: when turning notes into a report, models rarely used asides even without the skill. The rule comes from what we saw in real replies, not from a measurement.
 
 In round 3, each case took 72 seconds and about 67,000 tokens on average with the skill, and 37 seconds and about 56,000 tokens without it. The extra time goes to reading the rules and checking the draft.
 
@@ -227,7 +233,7 @@ Before writing, the AI works out the conclusion and the specific facts. After wr
 
 <p align="center"><b>Work out what to say</b> → <b>Write it</b> → <b>Revise against the checklist</b></p>
 
-The full rules and checklist are in [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md), written mostly in Chinese with English sections and examples. [`references/`](talk-like-a-human/references/) holds the buzzword lists and the full lists of defensive phrases and AI patterns, each with English examples; the AI reads them when it revises text or isn't sure about a word.
+The full rules and checklist are in [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md), written mostly in Chinese with English sections and examples. [`references/`](talk-like-a-human/references/) holds the buzzword lists, the full lists of defensive phrases and AI patterns, and guides for comments, commits, PRs and error messages, each with English examples. The AI reads them when it needs them.
 
 ### <a id="defensive"></a>What is defensive writing
 
@@ -239,17 +245,17 @@ Defensive lines are the ones a writer adds so that, if something goes wrong, "I 
 
 For each warning, the skill has the AI ask: if I delete this, will the reader know less? If yes, it makes the warning specific, like the right-hand column. If no, it deletes it.
 
-### <a id="dongpo"></a>The "Dongpo pork" problem
+### <a id="overcorrection"></a><a id="dongpo"></a>What is overcorrection?
 
-You ask an AI for tomato and egg stir-fry, and the plate arrives with a slab of Dongpo pork (a braised pork dish) on the side. You say "no pork". The next plate is labeled "tomato and egg stir-fry (no Dongpo pork)", and every later revision reminds you again that there's no pork.
+When you point out a problem, AI often goes too far. One way is to keep saying it changed something: you ask for tomato and egg stir-fry, and the plate arrives with a slab of braised pork on the side. You say "no pork". The next plate is labeled "tomato and egg stir-fry (no pork)", and every later revision reminds you again that there's no pork.
 
-Writing works the same way:
+Writing works the same way, and these notes often sit in parentheses:
 
 | Overcorrected (illustrative) | What it should be |
 | --- | --- |
 | Here's a buzzword-free version: Exports now finish in 40 seconds (no "seamless" this time). | Exports now finish in 40 seconds. |
 
-Readers of the final text never saw the earlier mistake, so the note in brackets is just new noise. The other way to overcorrect is swinging to the opposite extreme, such as turning "too formal" into slang or "too long" into fragments.
+Readers of the final text never saw the earlier mistake, so the note in brackets is just new noise. The other way is to swing to the opposite extreme, such as turning "too formal" into slang or "too long" into fragments.
 
 ## <a id="glossary"></a><a id="large-projects-check-that-names-stay-consistent"></a><img src="assets/icons/book.svg" width="22" height="22" alt="" align="absmiddle"> Advanced: checking names across a project
 
@@ -305,7 +311,7 @@ Terse notes get a little longer, because subjects and words like "because" and "
 <details>
 <summary><b>Does it help if I only write in English?</b></summary>
 
-Yes. The rules cover English writing and include an English buzzword list and English examples of defensive writing and AI patterns. Six of the 21 test cases are in English. The rulebook itself is mostly in Chinese, and the name-checking script reports in Chinese.
+Yes. The rules cover English writing and include an English buzzword list and English examples of defensive writing and AI patterns. Nine of the 28 test cases are in English. The rulebook itself is mostly in Chinese, and the name-checking script reports in Chinese.
 
 </details>
 

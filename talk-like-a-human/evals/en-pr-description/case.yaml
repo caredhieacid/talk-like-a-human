@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-pr-description
+expected_outcome: |
+  A short PR description: what changed and why, how it was verified, what was not tested, and the behaviour change called out.

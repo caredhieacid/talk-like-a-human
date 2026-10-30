@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-commit-message
+expected_outcome: |
+  标题具体说修了什么，正文说原因。不列文件，不用“优化”“完善”这类空词。
