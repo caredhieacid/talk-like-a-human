@@ -26,7 +26,7 @@
 
 <a href="assets/promo-en.mp4"><img src="assets/promo-en-preview.webp" alt="Promo clip: why AI doesn’t talk like a human, and how this skill fixes it" width="100%"></a>
 
-<p><sub>▶ Click to watch the full promo video (133 seconds, with music). It shows the common problems in AI writing, why they happen, and how this skill fixes them.</sub></p>
+<p><sub>▶ Click to watch the full promo video (141 seconds, with music). It shows the common problems in AI writing, why they happen, and how this skill fixes them.</sub></p>
 
 </div>
 

@@ -17,15 +17,15 @@
 - ❌ `// Retry the request 3 times`
 - ✅ `// The payment gateway drops requests during deploys, so retry.`
 
-### 不要留下对话和改动的痕迹
+### 不要留下对话内容和改动记录
 
 注释是写给以后读代码的人的，他们不知道这次改之前是什么样。
 
 - ❌ `// 改成了批量查询，之前是逐个查询`
 - ✅ `// 逐个查询在 1 万用户时会超时，所以批量查`
 - ❌ `// Updated to use the new API`、`// Fixed bug`、`// NEW:`、`// As requested`
-- ❌ `// Removed the legacy handler`（删掉的代码直接删，历史在 git 里）
-- ❌ `// 这里不需要加锁（已确认）`（谁确认的、依据是什么？）
+- ❌ `// Removed the legacy handler`。删掉的代码直接删，历史在 git 里。
+- ❌ `// 这里不需要加锁（已确认）`。读的人不知道谁确认的、依据是什么。
 - ✅ `// 只有启动时的单线程会调用这里，所以不用加锁`
 
 ### Docstring 和接口文档
