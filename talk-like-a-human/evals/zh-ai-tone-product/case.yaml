@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-ai-tone-product
+expected_outcome: |
+  三个功能都写清楚，不加原文没有的功能和数字；没有空泛宣传词、假对比、空形容词排比、emoji 和加粗小标题。

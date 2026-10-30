@@ -29,6 +29,41 @@
 - obra/the-elements-of-style https://github.com/obra/the-elements-of-style ：SKILL.md 只列规则，原书全文另外放；上下文不够时交给子代理去改。
 - anthropics/skills 的 doc-coauthoring https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring ：最后一步让一个不带上下文的新 Claude 回答读者会问的问题，看哪里答错。
 
+## 一（补）、防御性写法类 skill
+
+补充调研：2026-10-30。GitHub 上叫 anti-defensive-writing 或类似名字的仓库至少有 20 个，几乎都是 2026 年 6 到 10 月出现的，大多只管学术论文。
+
+**Kiterlin/anti-defensive-writing**（约 1.5k 星）https://github.com/Kiterlin/anti-defensive-writing 【原文】
+- 把防御性写作定义为：作者不讲观点，反复解释“没说什么、没证明什么”，是在跟想象中的批评者谈判。
+- 先给每句定性（多余免责、必要范围、方法局限、概念区分、证据限定、重复澄清），删掉多余的，把“不研究什么”改成“研究了什么”。
+- 保留影响结论、证据、适用范围和安全、法律后果的限定，只写一次。没有行为测试。
+
+**lennney/stop-that-shit 里的 stss**（仓库约 3.4k 星）https://github.com/lennney/stop-that-shit 【原文】
+- 判断方法最干净：每句先问谁会用、改变读者什么、删掉后什么会变假；再选删、收（只留一个精确限定）、挪（放到被限定的那句旁边，挪到脚注不算）、留四种处理。明确说不按关键词判断。
+- 我们第 8 条里“删掉、只留一层、挪到旁边、留下并写具体”这四种处理来自这里。
+
+**EtherealClarity/remove-defensive-writing-skill** https://github.com/EtherealClarity/remove-defensive-writing-skill 【原文】
+- 针对 ChatGPT 过度防御的回答。一条好用的检查：说出这句回应的是哪条具体反对意见，说不出来就删。
+
+**Devilyuu/anti-defensive-writing-zh** https://github.com/Devilyuu/anti-defensive-writing-zh 【原文】
+- 中文分类最完整，专门有一节防止删过头（比如把“可能提升”改成“提升”），附带核对数字和日期的脚本。
+
+**不建议照搬：** Adkid-Zephyr/anti-defensive-writing-Skill（约 4.5k 星）主张“论文是发布会，只讲最强的优势”，不利材料按“删、缩小主张、换维度”处理，没有“什么时候该保留”的清单，容易变成选择性呈现。
+
+## 一（再补）、去 AI 味 skill 的新进展
+
+补充调研：2026-10-30。
+
+- **blader/humanizer v3**（9 月）：35 条合成 25 条，两条总规则是“每句话都要给读者新东西”和“越少见于认真写作的人的写法，权重越高”。“not X but Y”和单独成行的收束句排在最前；删掉了“轮换近义词”。v3.1 新增“重讲读者已经知道的上下文”。【原文】
+- **avoid-ai-writing v3.37–3.38**（10 月）：用人写的文章校准后发现，普通的“not only…but also”“not X but Y”人用得更多，现在只在“It's not just X, it's Y”或三句内连用时才标。【原文】
+- **shuorenhua v2.6**（10 月 16 日）：用户说“别吹”时，只降纯程度的夸饰（“完美融合”改成“融合”），能核查的承诺和数字原样保留；正常文本误改 0/58。【原文】
+- **lieflat-less-ai-tone V2**（10 月 27 日）：新增 270 对同题材文章对照，推翻了 3 条旧规则：“一二三”序号小标题、“这意味着”式复述、用一句话引出列表，其实人用得更多。“赋能/闭环/抓手”“首先/其次/总之”配对后和人没有差别；“不是 A 而是 B”是最强的信号。【原文】
+- **Graphite 的研究**（约 9 万篇对照）：同一家模型相邻两个版本只有约 28–45% 的套路相同；某个新模型的破折号少了 99%，空出来的位置被“this matters”（人的 116 倍）这类新套话占了。说明按词表禁词正在失效。【原文】
+- **theclaymethod/unslop** 公开了“不发布”的结论：比不加 skill 找出、修好的问题多，但误伤率没达标。【原文】
+- 读者怎么判断“slop”：主要看内容相关性、信息密度和语气，看句法比看词汇准（Shaib 等，2026 年 10 月修订）。专业作家改 AI 文字，改的主要是别扭用词、句子结构、多余解释和陈词滥调，几乎都是“说不清楚”的问题（Chakrabarty 等，CHI 2025）。【原文】
+
+我们第 9 条据此改成：先管句子和结构层面的套路（假对比、点明意义、切得太碎、用冒号卖关子），词表只当参考；不改序号标题和“这意味着”；明确列出实测无用的表面功夫。
+
 ## 二、维基百科 Signs of AI writing【原文】
 
 https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
@@ -37,6 +72,7 @@ https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
 - 页面说这些是观察，不是规则；只改表面迹象，会让问题更难发现。
 - AI 常用词每年在变：delve 已经少见；2026 年中以后变成 leverage、prioritize 这类词，句子也变短了。
 - 破折号已列为过时迹象；“同义词轮换”也已列为过时迹象。“含糊的关联”是现在最常见的迹象之一。
+- 2026 年 10 月版（修订号 1382688615）：强迹象是 Markdown 残留、没填的占位符、“I hope this helps”这类聊天口吻；要成批出现才算的有 AI 词汇（按模型代际变化）、用“serves as”“boasts”回避 is/has、否定式对比、三连排比；2026 年中以后新出现“should be treated as X rather than Y”“does not establish”。无效指标包括语法完美、单独出现的过渡词；“perhaps”“tends to”被列为人写的迹象。中文的近义词轮换实测仍是强信号，和英文不同。
 
 ## 三、人写的规范
 

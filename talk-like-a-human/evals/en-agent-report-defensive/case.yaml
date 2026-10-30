@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: en-agent-report-defensive
+expected_outcome: |
+  Leads with the fix, states what was verified, names the two unverified items specifically, and has no generic disclaimers, apologies or filler closer.

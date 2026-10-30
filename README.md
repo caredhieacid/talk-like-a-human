@@ -6,7 +6,7 @@
 
 <h1><img src="assets/logo.svg" alt="" width="34" height="34" align="absmiddle"> 像人一样说话</h1>
 
-<p><b>让 AI 写出读一遍就懂的中文和英文</b><br>Agent Skill · Claude Code、Codex、Cursor、GitHub Copilot 等主流 AI 工具都能用 · 中文 + English</p>
+<p><b>让 AI 写出读一遍就懂的中文和英文</b><br>Agent Skill · 支持 Claude Code、Codex、Cursor、GitHub Copilot 等工具 · 中文 + English</p>
 
 <p>
 <a href="#install"><img src="https://img.shields.io/badge/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B-f97316?style=for-the-badge&amp;logo=gnubash&amp;logoColor=white" alt="快速开始"></a>
@@ -33,56 +33,47 @@
 <details>
 <summary><b>目录</b></summary>
 
-- [功能概览](#features)
+- [这是什么](#features)
 - [快速开始](#install)
 - [效果与测试](#evidence)
-- [工作原理](#how-it-works)
-- [进阶用法](#glossary)
+- [背景和做法](#how-it-works)
+- [进阶：检查项目里的叫法](#glossary)
 - [常见问题](#faq)
 - [参与贡献](#contributing)
 
 </details>
 
-## <a id="features"></a><img src="assets/icons/grid.svg" width="22" height="22" alt="" align="absmiddle"> 功能概览
+## <a id="features"></a><img src="assets/icons/grid.svg" width="22" height="22" alt="" align="absmiddle"> 这是什么
 
-**像人一样说话**是一个中英文写作 skill，专注于**清晰表达、忠实保留事实、统一术语**。它用通用的 Agent Skills 格式（一个带 `SKILL.md` 的文件夹），Claude Code、Codex、Cursor、GitHub Copilot、Gemini CLI 等主流 AI 工具都能直接加载。适用于聊天回复、周报、方案、文档和代码提交说明，支持从头写作与已有稿件改写。
+AI 写的东西常常让人读不懂：满是“赋能”“闭环”这类说不清具体意思的词，句子像翻译过来的，为了省字把主语删掉，同一个东西前后换好几个名字，还会编出你没给过的数字。
 
-AI 写的东西常常让人读不懂：满是“赋能”“闭环”“leverage”这类听着专业、却说不清具体意思的词，自己造新词，句子像翻译过来的、甚至读不通，为了省字把主语删掉，同一个东西前后换好几个名字，还会编出你没给过的数字。你指出问题以后，它又常常改过头。
+**像人一样说话**是一套写作规则，中文和英文都管。它是一个带 `SKILL.md` 的文件夹，这种格式叫 Agent Skills，Claude Code、Codex、Cursor、GitHub Copilot、Gemini CLI 等工具都能直接加载。装上以后，AI 写聊天回复、周报、文档、commit message 时会按这套规则写；你也可以让它改已有的稿子。
 
 <a href="assets/rewrite-actions-zh.jpg"><img src="assets/rewrite-actions-zh.jpg" alt="把黑话改成具体动作：开放订单状态查询能力，赋能客服团队，改写为客服能自己查订单状态" width="100%"></a>
 
-- <img src="assets/icons/message.svg" width="18" height="18" alt="" align="absmiddle"> **不说黑话**：不写“赋能”“闭环”，直接写具体做了什么。
-- <img src="assets/icons/tag.svg" width="18" height="18" alt="" align="absmiddle"> **不自造词**：不写“证据面”这种只有 AI 自己懂的新词。
-- <img src="assets/icons/pen.svg" width="18" height="18" alt="" align="absmiddle"> **句子要通顺**：写“清洗了数据”，不写“对数据进行了清洗”；也不出“通过……使……”这类缺主语的病句。
-- <img src="assets/icons/text.svg" width="18" height="18" alt="" align="absmiddle"> **句子要完整**：不为了省字删掉主语和“因为”“所以”。
-- <img src="assets/icons/link.svg" width="18" height="18" alt="" align="absmiddle"> **叫法统一**：同一个东西，从头到尾只用一个名字。
-- <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> **不乱编**：不补没给过的数字、细节和例子；推断要说明。
-- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> **不矫枉过正**：指出问题后直接改好，不端上“西红柿炒鸡蛋（没有东坡肉）”。[这是什么意思？](#dongpo)
+装上以后，AI 会这样写：
 
-### <a id="dongpo"></a>什么是“东坡肉”问题
-
-让 AI 做一道西红柿炒鸡蛋，它端上来的盘子里多了一块东坡肉。你说“别放东坡肉”，下一盘变成了“西红柿炒鸡蛋（没有东坡肉）”，之后每改一段，它都要再强调一句“不含东坡肉”。
-
-写文字也一样。你指出一个问题，AI 改的时候总把这个问题挂在嘴上，或者一下子改到另一个极端：
-
-| 改过头的写法（示意） | 应该的写法 |
-| --- | --- |
-| 以下是去掉黑话的版本：本周我们把投放数据和转化数据连了起来（没有使用“打通”“闭环”等说法）。 | 本周我们把投放数据和转化数据连了起来。 |
-
-读最终版本的人不知道之前出过什么问题，这些说明就成了新的噪音。这个 skill 要求：被指出问题后直接给出改好的内容，不在正文里写“（没有××）”“不含××”，不宣布“以下是不带××的版本”；也不反着改过头，比如嫌太正式就改成网络口语，嫌太长就把主语和因果一起删掉。
+- <img src="assets/icons/message.svg" width="18" height="18" alt="" align="absmiddle"> 说具体的事。把“赋能客服团队”写成“客服能自己查订单状态”；说不出具体做了什么，就标出来问你。
+- <img src="assets/icons/tag.svg" width="18" height="18" alt="" align="absmiddle"> 用大家都懂的词。自己造的新词（比如“证据面”）展开成一句话，“回滚”“幂等”这类术语照常用。
+- <img src="assets/icons/pen.svg" width="18" height="18" alt="" align="absmiddle"> 句子通顺、完整。“对数据进行了清洗”写成“清洗了数据”，笔记里为了省字删掉的主语和“因为”“所以”会补回来。
+- <img src="assets/icons/link.svg" width="18" height="18" alt="" align="absmiddle"> 一个东西一个叫法。从头到尾用同一个名字，并且和项目里已有的叫法一致。
+- <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> 只写有根据的事。原文的数字原样保留，没给的数字和细节不编，推出来的会说明。
+- <img src="assets/icons/check-circle.svg" width="18" height="18" alt="" align="absmiddle"> 只留读者用得上的提醒。真正的不确定和风险写具体，只为给自己留后路的话删掉。[什么是防御性写法？](#defensive)
+- <img src="assets/icons/minus-circle.svg" width="18" height="18" alt="" align="absmiddle"> 去掉 AI 腔。“这不是……而是……”“这一点非常重要”这样的写法，读者一眼就能认出是 AI 写的，换成具体内容。
+- <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> 指出问题后直接给改好的版本，不在里面注明“（没有××）”，也不改到另一个极端。[什么是“东坡肉”问题？](#dongpo)
 
 ## <a id="install"></a><a id="安装和使用"></a><img src="assets/icons/terminal.svg" width="22" height="22" alt="" align="absmiddle"> 快速开始
 
 ### 安装
 
-这个 skill 用的是 Agent Skills 格式：一个文件夹，里面的 `SKILL.md` 写着规则。Claude Code、Codex、Cursor 等工具都认这个格式，只是读取的目录不同。先把仓库下载到本地：
+先把仓库下载到本地：
 
 ```bash
 git clone https://github.com/caredhieacid/talk-like-a-human.git
 cd talk-like-a-human
 ```
 
-然后在表里找到你用的工具，把仓库里的 `talk-like-a-human` 文件夹链接到对应的目录：
+各个工具读取 skill 的目录不同。在表里找到你用的工具，把仓库里的 `talk-like-a-human` 文件夹链接过去：
 
 | 工具 | 放在哪个目录 |
 | --- | --- |
@@ -98,18 +89,18 @@ mkdir -p ~/.agents/skills
 ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 ```
 
-用 Claude Code，就把两处 `~/.agents` 换成 `~/.claude`。只用一个工具，做它对应的那一步就够了；同时用几个工具，每个目录各建一个链接。命令里的 `$PWD` 指当前目录，所以要在仓库目录里运行。
+用 Claude Code，就把两处 `~/.agents` 换成 `~/.claude`。同时用几个工具，每个目录各建一个链接。命令里的 `$PWD` 指当前目录，所以要在仓库目录里运行。
 
 > [!TIP]
 > 用链接安装的话，以后在仓库里运行 `git pull`，skill 会跟着更新。只想在某个项目里用，就把文件夹复制或链接到那个项目的 `.agents/skills/`（Claude Code 是 `.claude/skills/`）。
 >
 > 不支持 skill 的工具也能用：Aider 可以运行 `aider --read 仓库路径/talk-like-a-human/SKILL.md`；其他工具可以在它的规则文件（比如 `AGENTS.md`）里写一句“写给人看的文字，按 /你的仓库路径/talk-like-a-human/SKILL.md 的规则写”，路径要写完整。
 
-表里的目录来自各工具 2026 年 10 月的官方文档。我们实际装过试过的是 Claude Code 和 Codex：Codex 遇到改写任务时，会自己从 `~/.agents/skills/` 加载这个 skill。
+表里的目录来自各工具 2026 年 10 月的官方文档。我们实际装过的是 Claude Code 和 Codex。
 
 ### 使用
 
-装好以后，AI 写给人看的文字时会按需用上这套规则。也可以直接说：
+装好以后，AI 觉得需要时会自己用上这套规则。也可以直接说：
 
 - “帮我把这段改成人话”
 - “这份周报老板看不懂，改一下”
@@ -118,7 +109,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 支持斜杠命令的工具可以直接点名，比如在 Claude Code 里输入 `/talk-like-a-human 把上面那段改成人话`。
 
 > [!NOTE]
-> 想让每条回复都用这个 skill，在工具的全局说明文件里加一句：`写给人看的文字，都按 talk-like-a-human skill 来写。` Claude Code 是 `~/.claude/CLAUDE.md`，Codex 是 `~/.codex/AGENTS.md`，其他工具见各自的文档。
+> AI 不一定每次都会自己加载。我们测试时，Codex 写任务完成后的汇报，3 次都没有加载。想让每条回复都用上，在工具的全局说明文件里加一句：`写给人看的文字，都按 talk-like-a-human skill 来写。` Claude Code 是 `~/.claude/CLAUDE.md`，Codex 是 `~/.codex/AGENTS.md`，其他工具见各自的文档。
 
 ## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> 效果与测试
 
@@ -126,7 +117,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 
 ### <a id="examples"></a><a id="效果对比"></a>效果对比
 
-以下示例来自 Claude Opus 5.5 的测试输出，包含同一任务在启用和未启用 skill 时的对比，以及启用后的完整表达示例。表格内容均摘自回复原文。
+下面的例子都摘自 Claude Opus 5.5 测试时的回复原文。
 
 #### 不把猜测写成事实
 
@@ -145,10 +136,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 </tr>
 </table>
 
-**对比说明**
-
-- **不装 skill：** 看起来更具体，但“能看到每个渠道花了多少钱”是 Claude 猜的，原文没说。老板读到会当真。
-- **装了 skill：** 原文没说的不编，标出来请你补。
+不装 skill 的版本看起来更具体，但“能看到每个渠道花了多少钱”是 Claude 猜的，原文没说，老板读到会当真。装了 skill 的版本把原文没说的标出来，请你补。
 
 <details>
 <summary><b><img src="assets/icons/search.svg" width="16" height="16" alt="" align="absmiddle"> 更多对比：原始数字、完整句子和方案成本</b></summary>
@@ -168,10 +156,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 </tr>
 </table>
 
-**对比说明**
-
-- **不装 skill：** 换算成“快了约三倍”以后，客户就看不到实际要等几秒了。我们测了三轮，不装 skill 时每一轮都这样写。
-- **装了 skill：** 保留了原来的数字。
+换算成“快了约三倍”以后，客户就看不到实际要等几秒了。前三轮测试里，不装 skill 每次都这样换算；装了 skill 保留了原来的数字。
 
 #### 句子要完整
 
@@ -189,7 +174,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 >
 > 你确认好新的价格规则后跟我说一声，我就发布。发布后如果有问题，删掉这条 TTL 配置就能回滚。
 
-笔记里省掉的“我”、“所以”和谁来做什么都补上了。“最多过 5 分钟”这句是 Claude 根据 5 分钟的过期时间推出来的，它在回复末尾单独提醒了用户这一点。这个 skill 允许推断，但要求说明哪些是推出来的。
+笔记里省掉的“我”、“所以”和谁来做什么都补上了。“最多过 5 分钟”是 Claude 根据过期时间推出来的，它在回复末尾单独告诉了用户。
 
 #### 写方案时不自己编成本
 
@@ -206,30 +191,24 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 </tr>
 </table>
 
-**对比说明**
-
-- **不装 skill：** 每人每月的成本、维护成本和“16 个月收回投入”，都是 Claude 自己估的。
-- **装了 skill：** 没给的成本留空，请你填。
+不装 skill 的版本里，每人每月成本、维护成本和“16 个月收回投入”都是 Claude 自己估的。装了 skill 的版本把没给的成本留空，请你填。
 
 </details>
 
 ### <a id="results"></a><a id="测试结果"></a>测试结果
 
-[`evals/`](talk-like-a-human/evals/) 现在有 15 个测试用例、65 条检查项，覆盖写作质量、事实保留和术语一致性。其中 4 个用例验证对原本清晰文字的保留能力。
+[`evals/`](talk-like-a-human/evals/) 里有 21 个测试用例、89 条检查项，其中 6 个是英文的。每个用例在两种配置下各跑一次，再由编写 skill 的同一个 Claude 按检查项评分，所以下面是自测结果。前两轮用来修改规则，表里从第 3 轮开始；第 4、5 轮的对照组是不含这一轮新规则的上一版。
 
-前三轮对比评测每轮都用 Claude Opus 5.5，分别运行启用和未启用 skill 的两组任务，并在前两轮后根据结果改了规则。以下是第三轮的结果（当时有 12 个用例、52 条检查项）：
+| 轮次 | 测什么 | 模型 | 对照组 | 装了 skill |
+| --- | --- | --- | :---: | :---: |
+| 第 3 轮 | 12 个基础用例：用词、句子、事实、叫法 | Claude Opus 5.5 | 不装：43 / 52 | **52 / 52** |
+| 第 4 轮 | 3 个用例：语病、“东坡肉” | Claude Opus 5.5 | 上一版：13 / 13 | 13 / 13 |
+| 第 5 轮 | 6 个用例：防御性写法、AI 腔 | Claude Opus 5.5 | 上一版：24 / 24 | 24 / 24 |
+| 第 5 轮 | LinkedIn 发布帖，跑 3 次 | Codex | 不装：3 次分别得 2、3、3 分（满分 4） | **3 次都全部通过** |
 
-| 指标 | <img src="assets/icons/check-circle.svg" width="16" height="16" alt="" align="absmiddle"> 装了 skill | <img src="assets/icons/minus-circle.svg" width="16" height="16" alt="" align="absmiddle"> 不装 skill |
-| --- | :---: | :---: |
-| 检查项通过 | **52 / 52** | 43 / 52 |
-| 平均用时 | 72 秒 | 37 秒 |
-| 平均 token | 约 6.7 万 | 约 5.6 万 |
+第 4、5 轮新加的规则在 Claude 上还没测出效果，因为上一版规则也能全部通过。Codex 上差别明显，不装 skill 时，3 篇发布帖的结尾都是“Ideas don't wait for a connection”这类口号或“excited to”。
 
-用时和 token 用量统计包含规则读取、文字生成和自查的完整流程。
-
-**评测设置：** 每轮每个用例在两种配置下各运行一次；评分由编写 skill 的同一 Claude 在同一次对话中完成。
-
-**第四轮：** 这次更新新增了 3 个用例（共 13 条检查项），检查语病和“东坡肉”问题，分别用更新前和更新后的规则各跑一次。在 Claude Opus 5.5 上，两版都通过了全部 13 条，这 3 个用例看不出两版的差别。我们也在 Codex 上试了：只发一条消息的测试里，没有复现出“东坡肉”问题，它更常出现在来回改好几轮的对话里，所以这条规则的效果目前还没有测试数据。
+第 3 轮里，装了 skill 平均每个用例 72 秒、约 6.7 万 token，不装是 37 秒、约 5.6 万 token。多出来的是读规则和自查的时间。
 
 #### 复现测试
 
@@ -240,51 +219,11 @@ cd talk-like-a-human
 claude plugin eval . --allow-tools Write,Edit,Bash --scaffold
 ```
 
-## <a id="how-it-works"></a><a id="这个-skill-是怎么起作用的"></a><img src="assets/icons/workflow.svg" width="22" height="22" alt="" align="absmiddle"> 工作原理
-
-skill 将写作分为三个步骤：理清事实、完成表达、检查复核。AI 先确定结论与依据，再组织文字，最后检查用词、句子和事实：
-
-<img src="assets/writing-workflow-v2.jpg" alt="写作过程示意：先理清事实，再写出完整句子，最后检查用词和事实" width="100%">
-
-<p align="center"><b>理清事实</b> → <b>完成表达</b> → <b>检查复核</b></p>
-
-<details>
-<summary><b>查看完整流程（含长文档复核）</b></summary>
-
-```mermaid
-flowchart LR
-    A["想清楚要说什么<br/>结论和具体事实"] --> B["写出来"]
-    B --> C["对照自查清单<br/>改一遍"]
-    C --> D{"重要的长文档？<br/>比如超过一页的 README"}
-    D -- 是 --> E["另开一个没看过前面对话的 AI<br/>读一遍，指出看不懂的地方"]
-    E --> F["交给你"]
-    D -- 否 --> F
-```
-
-</details>
-
-<details>
-<summary><b>自查清单</b></summary>
-
-- 有没有读者要猜意思的词？把难懂的词换成另一个同样空泛的词，也算没改好。
-- 有没有自己造的、第一次出现却没解释的词？
-- 有没有用比喻代替直说，或者“相关问题”“涉及多个模块”这种没说具体是什么的地方？
-- 有没有读两遍才懂的句子？比如“对……进行……”，或者一长串修饰语、几个名词挤在一起（“用户权限变更审批流程优化方案”）。
-- 有没有主谓或动宾搭不上、主语被“通过……使……”吃掉、关联词不配对、“这”“它”指不清的句子？
-- 有没有为了省字删掉主语、“因为”“所以”，或者没写清谁来做？
-- 同一个东西是不是从头到尾一个叫法，而且和项目里已有的叫法一致？
-- 有没有编出来的数字、细节和例子，或者比原文说得更肯定的地方？
-- 有没有提到读者没见过的东西，却没交代它是什么？
-- 第一句话是不是读者最想知道的？
-- 按别人意见改过的地方，有没有留下“（没有××）”“不含××”这类说明，或者改过头变成了另一个毛病？
-
-</details>
-
-完整规则见 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。黑话和直白说法的对照表（中文、英文各一份）在 [`references/`](talk-like-a-human/references/) 文件夹里。
+## <a id="how-it-works"></a><a id="这个-skill-是怎么起作用的"></a><img src="assets/icons/workflow.svg" width="22" height="22" alt="" align="absmiddle"> 背景和做法
 
 ### <a id="research"></a><a id="为什么-ai-会这样写"></a>为什么 AI 会这样写
 
-AI 并不是不会写大白话，而是训练方式和平时的用法，让它养成了这些习惯：
+下面这些毛病，多半是训练方式和平时的用法造成的：
 
 | 毛病 | 主要原因 |
 | --- | --- |
@@ -293,12 +232,46 @@ AI 并不是不会写大白话，而是训练方式和平时的用法，让它�
 | 中文像翻译过来的 | 中文训练材料比英文少得多，不少是从英文翻译过来的 |
 | 为了省字删掉主语 | 用户和软件常要求 AI“简洁”“少用字”，最省事的做法就是删主语和“因为”“所以” |
 | 同一个东西换着叫 | AI 记不住上一次对话说过什么；一次对话太长，也会忘掉前面定好的叫法 |
+| 满篇免责声明和“可能” | 安全训练鼓励加提醒和免责声明；可是研究发现，真正拿不准的内容，模型反而常常说得很肯定 |
+| 一眼就能认出的 AI 腔 | 模型学到的是“好回答的样子”：先否定一个没人说过的说法再亮出观点，段末点明“这很重要”，几百字也切成好几节 |
 
 每条原因的证据和出处见 [`research/why-ai-writes-this-way.md`](research/why-ai-writes-this-way.md)。同类 skill 和工具的调研见 [`research/similar-skills.md`](research/similar-skills.md)。
 
-## <a id="glossary"></a><a id="大项目检查叫法是否统一"></a><img src="assets/icons/book.svg" width="22" height="22" alt="" align="absmiddle"> 进阶：统一项目术语
+### <a id="process"></a>skill 让 AI 怎么写
 
-内置术语检查脚本，按项目术语表检查文档和代码中的叫法，定位不一致之处，并支持接入 CI 自动检查。
+AI 动笔前先想清楚结论和具体事实，写完再对照自查清单改一遍。超过一页的重要文档，如果工具能开子 agent，还会另开一个没看过前面对话的 AI 来读，它读不懂、读错的地方就是要改的地方。
+
+<img src="assets/writing-workflow-v2.jpg" alt="写作过程示意：先想清楚，再写出来，最后对照清单改一遍" width="100%">
+
+<p align="center"><b>想清楚</b> → <b>写出来</b> → <b>对照清单改一遍</b></p>
+
+完整规则和自查清单在 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。[`references/`](talk-like-a-human/references/) 里有中英文黑话对照表，以及防御性写法和 AI 腔的完整清单，AI 改稿或拿不准时才去查。
+
+### <a id="defensive"></a>什么是防御性写法
+
+防御性的话是写的人为了“万一错了不怪我”加上去的，比如“仅供参考”“建议上线前充分测试”。读的人从里面得不到能用的信息；满篇都是提醒，反而分不清哪一句要紧。
+
+| 防御性的写法（示意） | 应该的写法 |
+| --- | --- |
+| 已修复登录超时问题。可能还存在其他边界情况，建议上线前充分测试。 | 登录超时修好了，在 Chrome 上测过。Safari 没测；手机端走的是另一套登录接口，这次没改。 |
+
+对每句提醒，skill 让 AI 先问：删掉它，读者会少知道什么吗？会，就像表格里“应该的写法”那样写具体；不会，就删掉。
+
+### <a id="dongpo"></a>什么是“东坡肉”问题
+
+让 AI 做一道西红柿炒鸡蛋，它多放了一块东坡肉。你说“别放东坡肉”，下一盘端上来的是“西红柿炒鸡蛋（没有东坡肉）”，之后每改一次，都要再强调一句“不含东坡肉”。
+
+写文字也会这样：
+
+| 改过头的写法（示意） | 应该的写法 |
+| --- | --- |
+| 以下是去掉黑话的版本：本周我们把投放数据和转化数据连了起来（没有使用“打通”“闭环”等说法）。 | 本周我们把投放数据和转化数据连了起来。 |
+
+读最终版本的人根本不知道之前出过什么问题，括号里的说明只是新的噪音。另一种改过头是走到反面：嫌太正式就改成网络口语，嫌太长就连主语也删了。
+
+## <a id="glossary"></a><a id="大项目检查叫法是否统一"></a><img src="assets/icons/book.svg" width="22" height="22" alt="" align="absmiddle"> 进阶：检查项目里的叫法
+
+项目大了，同一个东西很容易被不同的人叫成不同的名字。skill 带了一个检查脚本，按你的术语表找出文档和代码里叫错的地方，也能放进 CI（提交代码时自动运行的检查）。
 
 ### 准备术语表
 
@@ -315,7 +288,7 @@ AI 并不是不会写大白话，而是训练方式和平时的用法，让它�
 
 ### 运行检查
 
-然后在你的项目文件夹里运行检查脚本，把 `GLOSSARY.md` 和 `docs/` 换成你的术语表和文档目录；skill 装在别的目录的话，把脚本路径也换掉。脚本需要 Python 3，只用 Python 自带的功能，不用另外安装东西。下面是在一个示例项目里运行的结果：
+在你的项目文件夹里运行下面的命令，把 `GLOSSARY.md` 和 `docs/` 换成你的术语表和文档目录；skill 装在别的目录的话，脚本路径也要换。脚本只需要 Python 3，不用另外安装东西。下面是在一个示例项目里运行的结果：
 
 ```console
 $ python3 ~/.agents/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md docs/
@@ -326,11 +299,11 @@ docs/members.md:1: 用了「组员」，统一用「成员」
 叫法不统一 4 处
 ```
 
-发现不统一的叫法时，脚本会以失败状态退出（退出码 1）。所以可以把它放进提交代码时的自动检查（CI），有人写错叫法就会报错。
+发现叫错的地方时，脚本的退出码是 1，所以放进 CI 以后，有人写错叫法就会报错。
 
 ### 统计不同叫法
 
-使用 `--count` 统计每种叫法的出现次数和所在文件，为统一项目术语提供依据：
+还没定用哪个叫法时，加 `--count` 先看看每种叫法用了几次、在哪些文件：
 
 ```console
 $ python3 ~/.agents/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md --count docs/
@@ -355,25 +328,18 @@ $ python3 ~/.agents/skills/talk-like-a-human/scripts/check_terms.py --glossary G
 </details>
 
 <details>
-<summary><b>怎样控制回复篇幅？</b></summary>
+<summary><b>回复会变长吗？</b></summary>
 
-以表达完整、阅读顺畅为标准：简略笔记会补齐必要的主语和因果关系，冗长文字会删去客套和重复。篇幅由内容决定，语气和专业程度与读者及使用场景保持一致。
+省字的笔记改完会长一点，因为要补回主语和“因为”“所以”。啰嗦的稿子改完会短一点，因为客套、重复和给自己留后路的话会删掉。
 
 </details>
 
 <details>
 <summary><b>和“去 AI 味”的工具有什么不同？</b></summary>
 
-humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主要改你贴进去的稿子，目标是让文字看起来不像 AI 写的。有些还会禁止用破折号，或者把同一个词轮流换成近义词。
+humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主要改你贴进去的稿子，目标是让文字看起来不像 AI 写的，有些还会禁用破折号、轮换近义词。
 
-这个 skill 的目标是让人读一遍就懂。它管的是 AI 写的所有文字，不只是改你贴进来的稿子；也不靠禁破折号、换近义词这类办法，因为换近义词反而会让读者以为说的是不同的东西。另外，这个 skill 还带了检查脚本，能检查整个项目的叫法是否统一。
-
-</details>
-
-<details>
-<summary><b>这个 skill 面向哪些工具？</b></summary>
-
-支持 Agent Skills（`SKILL.md`）的工具都能直接用，包括 Claude Code、Codex、Cursor、GitHub Copilot、Gemini CLI、OpenCode、Cline、Kiro 等，安装位置见[快速开始](#install)。不支持 skill 的工具，可以在它的规则文件里引用 `SKILL.md`。
+这个 skill 管 AI 写的所有文字，目标是读一遍就懂。它也去 AI 腔，但只改让文字变空的写法。同一个东西始终用同一个名字，因为换了名字，读者会以为说的是另一样东西。
 
 </details>
 
@@ -396,9 +362,9 @@ humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主�
 talk-like-a-human/
 ├── talk-like-a-human/          # skill 文件夹，安装的就是它
 │   ├── SKILL.md                # 规则、例子和自查清单
-│   ├── references/             # 中英文黑话对照表、术语表模板
+│   ├── references/             # 中英文黑话对照表、防御性写法和 AI 腔清单、术语表模板
 │   ├── scripts/check_terms.py  # 检查叫法是否统一的脚本
-│   └── evals/                  # 15 个测试用例
+│   └── evals/                  # 21 个测试用例
 ├── research/                   # 两份调研报告
 ├── assets/                     # README 用的图片
 ├── .github/                    # 自动检查、CODEOWNERS、PR 模板
