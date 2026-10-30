@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-keep-real-caveats
+expected_outcome: |
+  删掉空泛的保留说法和客套，但留下真正的限制和风险：统计范围、字段删除后无法恢复、执行前要确认报表。数字和确定程度不变。

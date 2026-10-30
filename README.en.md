@@ -47,7 +47,7 @@
 
 **Talk Like a Human** is a Chinese and English writing skill built around **clear expression, factual fidelity and consistent terminology**. It uses the open Agent Skills format (a folder with a `SKILL.md`), so Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI and other mainstream AI tools can load it directly. Use it to draft or revise chat replies, reports, proposals, docs and commit messages.
 
-AI writing is often hard to read. It is full of buzzwords like "leverage" and "seamless", it invents terms nobody else uses, it writes sentences that don't quite parse, it drops subjects and linking words to save space, it calls one thing by three different names, and it changes or makes up numbers. When you point out a problem, it often overcorrects.
+AI writing is often hard to read. It is full of buzzwords like "leverage" and "seamless", it invents terms nobody else uses, it writes sentences that don't quite parse, it drops subjects and linking words to save space, it calls one thing by three different names, and it changes or makes up numbers. It also covers itself with "for reference only", "may" and "use with caution" everywhere, and stock lines like "Great question!" and "I hope this helps!" give it away as AI writing. When you point out a problem, it often overcorrects.
 
 <a href="assets/rewrite-actions-en.jpg"><img src="assets/rewrite-actions-en.jpg" alt="Say what people can do: Empower support with order status visibility becomes Let support check order status" width="100%"></a>
 
@@ -57,6 +57,8 @@ AI writing is often hard to read. It is full of buzzwords like "leverage" and "s
 - <img src="assets/icons/text.svg" width="18" height="18" alt="" align="absmiddle"> **Complete sentences**: Keep the subject and words like “because” and “so”.
 - <img src="assets/icons/link.svg" width="18" height="18" alt="" align="absmiddle"> **One name per thing**: Call the same thing by the same name throughout.
 - <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> **No invented facts**: Keep the original numbers. Label inferences and ask for missing details.
+- <img src="assets/icons/check-circle.svg" width="18" height="18" alt="" align="absmiddle"> **No defensive writing**: No "this is not professional advice" or "please test thoroughly" written only to cover the writer. Real uncertainty gets stated once: what is uncertain and how to check. [Example](#defensive)
+- <img src="assets/icons/minus-circle.svg" width="18" height="18" alt="" align="absmiddle"> **No AI tone**: No "It's not just X, it's Y", "Here's why this matters" or "fast, reliable, and scalable"; say the specific thing instead.
 - <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> **No overcorrection**: Once a problem is pointed out, just fix it. No "tomato and egg stir-fry (no Dongpo pork)". [What does that mean?](#dongpo)
 
 ### <a id="dongpo"></a>The "Dongpo pork" problem
@@ -70,6 +72,19 @@ Writing works the same way. Point out one problem and the AI keeps mentioning it
 | Here's a buzzword-free version: Exports now finish in 40 seconds (no "seamless" this time). | Exports now finish in 40 seconds. |
 
 Readers of the final text never saw the earlier mistake, so these notes are just new noise. The skill tells the AI to deliver the fixed text directly: no "(no X)" or "X-free" labels, no "Here's a version without X", and no swinging to the other extreme, such as turning "too formal" into slang or "too long" into fragments.
+
+### <a id="defensive"></a>What is defensive writing
+
+Defensive lines are the ones a writer adds so that, if something goes wrong, "I warned you". The reader learns nothing they can act on, and when every sentence carries a warning or a "may", it's hard to tell which one actually matters.
+
+| Defensive (illustrative) | What it should be |
+| --- | --- |
+| Fixed the login timeout. There may be other edge cases, so please test thoroughly before deploying. | Fixed the login timeout and tested it in Chrome. Safari isn't tested, and the mobile app uses a different login endpoint that this change doesn't touch. |
+| This is for reference only. Please consult a professional. | Give the specific information. If someone really should see a doctor or a lawyer, say in which situation. |
+
+For each warning, qualifier or disclaimer, the skill has the AI ask: if I delete this, will the reader know less or be more likely to get something wrong? Then it drops the line, cuts stacked hedges down to one, moves the qualifier next to the claim it qualifies, or keeps it and makes it specific.
+
+Dropping defensive lines doesn't mean overstating. Real uncertainty is still stated, and risks such as deleting data, actions that can't be undone, money or health still get a warning. They are just written specifically, and once.
 
 ## <a id="install"></a><a id="install-and-use"></a><img src="assets/icons/terminal.svg" width="22" height="22" alt="" align="absmiddle"> Quick start
 
@@ -193,7 +208,7 @@ The message puts back who does what, and the "so" that links cause and effect. T
 
 ### <a id="results"></a><a id="test-results"></a>Test results
 
-[`evals/`](talk-like-a-human/evals/) now has 15 test cases and 65 checks covering writing quality, factual fidelity and consistent terminology. Four cases verify that already-clear text is preserved.
+[`evals/`](talk-like-a-human/evals/) now has 21 test cases and 89 checks covering writing quality, factual fidelity, consistent terminology, defensive writing and AI tone. Five cases check that things which should stay do stay, such as text that was already clear and real risk warnings.
 
 The first three rounds of comparative evaluation each used Claude Opus 5.5 to run tasks with and without the skill, and the rules were refined after each of the first two. The table shows the third round (12 cases and 52 checks at the time):
 
@@ -208,6 +223,12 @@ Time and token measurements cover the full process: reading the rules, generatin
 **Evaluation setup:** Each test case ran once per configuration in each round. Grading was performed by the same Claude, in the same conversation, that authored the skill.
 
 **Round 4:** this update adds three cases (13 checks in total) for ungrammatical sentences and the "Dongpo pork" problem, each run once with the rules before and after the update. On Claude Opus 5.5 both versions passed all 13 checks, so these three cases show no difference between them. We also tried Codex: in tests with a single message, it didn't reproduce the "Dongpo pork" problem, which tends to show up over several rounds of edits, so there is no test data yet on how much this rule helps.
+
+**Round 5:** this update adds the defensive writing and AI tone rules and six cases (24 checks): a health question, a customer notice, an end-of-task report, an app store blurb, a LinkedIn launch post, and a team message that mixes filler with a real risk warning, to check that the AI keeps the warning.
+
+- Claude Opus 5.5: both the old and new rules passed all 24 checks, so these single-message tests show no difference.
+- Codex: without the skill, all 3 runs of the LinkedIn post ended on a slogan such as "Ideas don't wait for a connection" or on "excited to"; with the skill, none of 3 runs did. The first draft of the rules left out phrases like "excited to" and failed once; these 3 runs came after that fix. In the other cases, Codex didn't add blanket disclaimers even without the skill.
+- Still open: in 3 tries, Codex never loaded the skill on its own when writing its end-of-task report. To apply it to every reply, add the line from the Usage section to `~/.codex/AGENTS.md`.
 
 #### Run the tests yourself
 
@@ -253,12 +274,14 @@ flowchart LR
 - Is each thing called by one name throughout, and the same name the project already uses?
 - Are there made-up numbers, details or examples, or anything stated more firmly than the source?
 - Does the text mention something the reader hasn't seen, and fail to explain what it is?
-- Is the first sentence the thing the reader most wants to know?
+- Is the first sentence the thing the reader most wants to know? Is the last sentence information or a next step, rather than a recap or a pleasantry?
+- Is there anything written only to cover the writer: a blanket disclaimer, stacked "may"s, a rebuttal of an objection nobody made, a vague warning, an unneeded apology?
+- Do AI patterns show up in a batch: refuting a claim nobody made, telling the reader why it matters, short text cut into many sections, colon reveals, stock openers and closers, padded lists of three, pure hype?
 - Where a fix was requested, did any "(no X)" or "X-free" note get left behind, or did the fix swing into a different problem?
 
 </details>
 
-The full rules are in [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md). It is written mostly in Chinese, with English sections and examples. The English buzzword list is [`references/en-jargon.md`](talk-like-a-human/references/en-jargon.md).
+The full rules are in [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md). It is written mostly in Chinese, with English sections and examples. The English buzzword list is [`references/en-jargon.md`](talk-like-a-human/references/en-jargon.md). [`references/defensive-writing.md`](talk-like-a-human/references/defensive-writing.md) and [`references/ai-tells.md`](talk-like-a-human/references/ai-tells.md) cover defensive writing and AI tone, with English examples in each.
 
 ### <a id="research"></a><a id="why-ai-writes-like-this"></a>Why AI writes like this
 
@@ -271,6 +294,8 @@ The AI can write plainly. The way it is trained, and the way people use it, push
 | Chinese that reads like a translation | There is far less Chinese training data than English, and much of it was translated from English |
 | Dropped subjects and linking words | Users, and the instructions apps give the AI behind the scenes, often ask for short answers; dropping words is the easiest way to get there |
 | The same thing gets new names | The AI doesn't remember earlier conversations, and in a long conversation it loses track of names agreed earlier |
+| Disclaimers and "may" everywhere | Safety training encourages warnings and disclaimers, yet studies find that models often state the content they're actually unsure about with confidence |
+| Stock patterns you can spot at a glance | The model learned what a good answer looks like: refute a claim nobody made, then say why it matters, and split even a short answer into sections |
 
 Sources for each cause are in [`research/why-ai-writes-this-way.md`](research/why-ai-writes-this-way.md) (in Chinese).
 
@@ -337,7 +362,7 @@ Yes. The rules cover English writing and include a dedicated English buzzword li
 
 Tools like [humanizer](https://github.com/blader/humanizer) mainly rewrite text you paste in so that it doesn't read like AI. Some also ban dashes or keep swapping a word for its synonyms.
 
-This skill aims for text people understand on the first read. It covers everything the AI writes, not just text you paste in, and it doesn't use tricks like banning dashes or swapping synonyms, because swapping synonyms makes readers think you mean different things. The skill also includes a name-checking script for whole projects.
+This skill aims for text people understand on the first read. It covers everything the AI writes, not just text you paste in. It does remove AI tone, but it targets patterns that empty out the text, such as refuting a claim nobody made or telling the reader why something matters. It doesn't use tricks like banning dashes or swapping synonyms, because swapping synonyms makes readers think you mean different things. It also handles defensive writing while keeping real risk warnings. The skill includes a name-checking script for whole projects.
 
 </details>
 
