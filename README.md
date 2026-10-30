@@ -26,7 +26,7 @@
 
 <a href="assets/promo-zh.mp4"><img src="assets/promo-zh-preview.webp" alt="宣传片片段：AI 为什么不说人话，以及这个 skill 怎么让 AI 写出读一遍就懂的话" width="100%"></a>
 
-<p><sub>▶ 点击上图观看完整宣传片（102 秒，有配乐）。前半段讲 AI 为什么不说人话，后半段介绍这个 skill 怎么解决。</sub></p>
+<p><sub>▶ 点击上图观看完整宣传片（133 秒，有配乐）。依次讲 AI 写作的常见毛病、背后的原因，以及这个 skill 怎么改。</sub></p>
 
 </div>
 
