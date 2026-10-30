@@ -39,6 +39,7 @@
 - [背景和做法](#how-it-works)
 - [进阶：检查项目里的叫法](#glossary)
 - [常见问题](#faq)
+- [致谢](#thanks)
 - [参与贡献](#contributing)
 
 </details>
@@ -342,6 +343,29 @@ humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主�
 这个 skill 管 AI 写的所有文字，目标是读一遍就懂。它也去 AI 腔，但只改让文字变空的写法。同一个东西始终用同一个名字，因为换了名字，读者会以为说的是另一样东西。
 
 </details>
+
+## <a id="thanks"></a><a id="致谢"></a><img src="assets/icons/link.svg" width="22" height="22" alt="" align="absmiddle"> 致谢
+
+写这套规则时，我们读了不少同类项目和写作规范，各取了一些好用的做法。规则文字是我们自己写的，没有照搬。
+
+| 项目 | Star | 我们借鉴的做法 |
+| --- | --- | --- |
+| [anthropics/skills 里的 doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | <img src="https://img.shields.io/github/stars/anthropics/skills?style=flat-square&amp;logo=github&amp;label=" alt="anthropics/skills 的 GitHub star 数"> | 让一个没看过前文的 AI 读文档，看它哪里读错 |
+| [blader/humanizer](https://github.com/blader/humanizer) | <img src="https://img.shields.io/github/stars/blader/humanizer?style=flat-square&amp;logo=github&amp;label=" alt="blader/humanizer 的 GitHub star 数"> | 规则按强弱排序，每条配改前改后的例子；每句话都要给读者新信息 |
+| [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) | <img src="https://img.shields.io/github/stars/op7418/Humanizer-zh?style=flat-square&amp;logo=github&amp;label=" alt="op7418/Humanizer-zh 的 GitHub star 数"> | 改写不改变确定程度：“可能”不写成“确定”，“计划”不写成“已完成” |
+| [sparanoid/chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines) | <img src="https://img.shields.io/github/stars/sparanoid/chinese-copywriting-guidelines?style=flat-square&amp;logo=github&amp;label=" alt="sparanoid/chinese-copywriting-guidelines 的 GitHub star 数"> | 不用不地道的缩写 |
+| [ruanyf/document-style-guide](https://github.com/ruanyf/document-style-guide) | <img src="https://img.shields.io/github/stars/ruanyf/document-style-guide?style=flat-square&amp;logo=github&amp;label=" alt="ruanyf/document-style-guide 的 GitHub star 数"> | “其”“该”“此”要指代明确；不用生造词 |
+| [vale-cli/vale](https://github.com/vale-cli/vale) | <img src="https://img.shields.io/github/stars/vale-cli/vale?style=flat-square&amp;logo=github&amp;label=" alt="vale-cli/vale 的 GitHub star 数"> | 检查叫法的规则可以写例外 |
+| [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) | <img src="https://img.shields.io/github/stars/conorbronsdon/avoid-ai-writing?style=flat-square&amp;logo=github&amp;label=" alt="conorbronsdon/avoid-ai-writing 的 GitHub star 数"> | AI 会换个近义词绕开禁用词表；“不是……而是……”人也常用，只有固定几种句式才算 AI 腔 |
+| [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) | <img src="https://img.shields.io/github/stars/larashero3-dotcom/lieflat-less-ai-tone?style=flat-square&amp;logo=github&amp;label=" alt="larashero3-dotcom/lieflat-less-ai-tone 的 GitHub star 数"> | 拿人写的文章对照：人比 AI 更常重复同一个名词，“一、二、三”小标题和“这意味着”人也常用 |
+| [lennney/stop-that-shit](https://github.com/lennney/stop-that-shit) | <img src="https://img.shields.io/github/stars/lennney/stop-that-shit?style=flat-square&amp;logo=github&amp;label=" alt="lennney/stop-that-shit 的 GitHub star 数"> | 处理防御性的话的四种办法：删掉、只留一处、挪到被限定的句子旁边、留下并写具体 |
+| [MrGeDiao/shuorenhua](https://github.com/MrGeDiao/shuorenhua) | <img src="https://img.shields.io/github/stars/MrGeDiao/shuorenhua?style=flat-square&amp;logo=github&amp;label=" alt="MrGeDiao/shuorenhua 的 GitHub star 数"> | 默认少改；轮换近义词反而加重 AI 味；要求“别吹”时只去掉表示程度的夸饰 |
+| [Kiterlin/anti-defensive-writing](https://github.com/Kiterlin/anti-defensive-writing) | <img src="https://img.shields.io/github/stars/Kiterlin/anti-defensive-writing?style=flat-square&amp;logo=github&amp;label=" alt="Kiterlin/anti-defensive-writing 的 GitHub star 数"> | 什么是防御性写作；影响结论和安全的限定要留下，只写一次 |
+| [Raymondhou0917/speak-human-tw](https://github.com/Raymondhou0917/speak-human-tw) | <img src="https://img.shields.io/github/stars/Raymondhou0917/speak-human-tw?style=flat-square&amp;logo=github&amp;label=" alt="Raymondhou0917/speak-human-tw 的 GitHub star 数"> | 改稿前先圈出数字、专名、原话这些不能动的内容 |
+
+我们还读过 [stop-slop](https://github.com/hardikpandya/stop-slop)、[the-elements-of-style](https://github.com/obra/the-elements-of-style)、[remove-defensive-writing-skill](https://github.com/EtherealClarity/remove-defensive-writing-skill)、[anti-defensive-writing-zh](https://github.com/Devilyuu/anti-defensive-writing-zh)、[prh](https://github.com/prh/prh) 等项目。每个项目的做法，以及我们为什么没有采用其中一些规定，记在 [research/similar-skills.md](research/similar-skills.md)。
+
+写作规范方面，参考了 [GOV.UK 写作指南](https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/style-guides/a-to-z-style-guide/)、美国政府的 [plainlanguage.gov](https://github.com/GSA/plainlanguage.gov)、[微软写作风格指南](https://learn.microsoft.com/en-us/style-guide/welcome/)、[Google 开发者文档风格指南](https://developers.google.com/style)，以及维基百科的 [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)。讲 AI 为什么会这样写的论文，列在 [research/why-ai-writes-this-way.md](research/why-ai-writes-this-way.md)。
 
 ## <a id="contributing"></a><a id="参与改进"></a><img src="assets/icons/users.svg" width="22" height="22" alt="" align="absmiddle"> 参与贡献
 

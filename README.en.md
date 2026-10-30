@@ -39,6 +39,7 @@
 - [Background and approach](#how-it-works)
 - [Advanced: checking names across a project](#glossary)
 - [FAQ](#faq)
+- [Acknowledgments](#thanks)
 - [Contributing](#contributing)
 
 </details>
@@ -316,6 +317,29 @@ Tools like [humanizer](https://github.com/blader/humanizer) mainly rewrite text 
 This skill covers everything the AI writes, and the goal is text people understand on the first read. It removes AI tone too, but only the patterns that empty out the text. It keeps one name for each thing, because a new name makes readers think you mean a different thing.
 
 </details>
+
+## <a id="thanks"></a><img src="assets/icons/link.svg" width="22" height="22" alt="" align="absmiddle"> Acknowledgments
+
+While writing these rules we read many similar projects and style guides and took the practices that worked. The rules themselves are written by us, not copied.
+
+| Project | Stars | What we took from it |
+| --- | --- | --- |
+| [doc-coauthoring in anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | <img src="https://img.shields.io/github/stars/anthropics/skills?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of anthropics/skills"> | Have a fresh AI with no context read the doc and see where it gets things wrong |
+| [blader/humanizer](https://github.com/blader/humanizer) | <img src="https://img.shields.io/github/stars/blader/humanizer?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of blader/humanizer"> | Rules ordered by strength, each with a before and after; every sentence should tell the reader something new |
+| [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) | <img src="https://img.shields.io/github/stars/op7418/Humanizer-zh?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of op7418/Humanizer-zh"> | Rewrites keep the original certainty: “may” doesn’t become “will”, “planned” doesn’t become “done” |
+| [sparanoid/chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines) | <img src="https://img.shields.io/github/stars/sparanoid/chinese-copywriting-guidelines?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of sparanoid/chinese-copywriting-guidelines"> | No made-up abbreviations |
+| [ruanyf/document-style-guide](https://github.com/ruanyf/document-style-guide) | <img src="https://img.shields.io/github/stars/ruanyf/document-style-guide?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of ruanyf/document-style-guide"> | Words like “it” and “this” must point to one clear thing; no coined words |
+| [vale-cli/vale](https://github.com/vale-cli/vale) | <img src="https://img.shields.io/github/stars/vale-cli/vale?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of vale-cli/vale"> | Name-check rules can list exceptions |
+| [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) | <img src="https://img.shields.io/github/stars/conorbronsdon/avoid-ai-writing?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of conorbronsdon/avoid-ai-writing"> | AI dodges banned-word lists by switching to synonyms; “not X but Y” is common in human writing too, and only a few fixed forms are AI tells |
+| [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) | <img src="https://img.shields.io/github/stars/larashero3-dotcom/lieflat-less-ai-tone?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of larashero3-dotcom/lieflat-less-ai-tone"> | Checked against human writing: people repeat the same noun more often than AI does, and numbered headings or “this means” are common in human writing too |
+| [lennney/stop-that-shit](https://github.com/lennney/stop-that-shit) | <img src="https://img.shields.io/github/stars/lennney/stop-that-shit?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of lennney/stop-that-shit"> | Four ways to handle a defensive line: delete it, keep one hedge, move it next to the claim, or keep it and make it specific |
+| [MrGeDiao/shuorenhua](https://github.com/MrGeDiao/shuorenhua) | <img src="https://img.shields.io/github/stars/MrGeDiao/shuorenhua?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of MrGeDiao/shuorenhua"> | Change as little as needed by default; rotating synonyms makes text sound more like AI; when asked to tone down hype, remove only the intensity words |
+| [Kiterlin/anti-defensive-writing](https://github.com/Kiterlin/anti-defensive-writing) | <img src="https://img.shields.io/github/stars/Kiterlin/anti-defensive-writing?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of Kiterlin/anti-defensive-writing"> | What defensive writing is; caveats that affect the conclusion or safety stay, stated once |
+| [Raymondhou0917/speak-human-tw](https://github.com/Raymondhou0917/speak-human-tw) | <img src="https://img.shields.io/github/stars/Raymondhou0917/speak-human-tw?style=flat-square&amp;logo=github&amp;label=" alt="GitHub stars of Raymondhou0917/speak-human-tw"> | Before revising, mark what must not change: numbers, names and quotes |
+
+We also read [stop-slop](https://github.com/hardikpandya/stop-slop), [the-elements-of-style](https://github.com/obra/the-elements-of-style), [remove-defensive-writing-skill](https://github.com/EtherealClarity/remove-defensive-writing-skill), [anti-defensive-writing-zh](https://github.com/Devilyuu/anti-defensive-writing-zh), [prh](https://github.com/prh/prh) and others. What each one does, and why we left out some of their rules, is in [research/similar-skills.md](research/similar-skills.md) (in Chinese).
+
+For style guides we drew on the [GOV.UK style guide](https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/style-guides/a-to-z-style-guide/), the US government’s [plainlanguage.gov](https://github.com/GSA/plainlanguage.gov), the [Microsoft Writing Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/), the [Google developer documentation style guide](https://developers.google.com/style) and Wikipedia’s [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing). The papers on why AI writes this way are listed in [research/why-ai-writes-this-way.md](research/why-ai-writes-this-way.md).
 
 ## <a id="contributing"></a><img src="assets/icons/users.svg" width="22" height="22" alt="" align="absmiddle"> Contributing
 
