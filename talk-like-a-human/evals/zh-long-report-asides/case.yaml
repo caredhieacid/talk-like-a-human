@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-long-report-asides
+expected_outcome: |
+  信息多的汇报里，前后对比和补充信息都写进句子，不靠括号塞。数字和没做的事都保留。

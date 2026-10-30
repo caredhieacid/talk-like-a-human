@@ -64,6 +64,27 @@
 
 我们第 9 条据此改成：先管句子和结构层面的套路（假对比、点明意义、切得太碎、用冒号卖关子），词表只当参考；不改序号标题和“这意味着”；明确列出实测无用的表面功夫。
 
+## 一（三补）、括号和写代码时的文字
+
+补充调研：2026-10-30。
+
+**括号**
+
+- 没有找到“AI 普遍比人多用括号”的研究，证据反而指向另一边：一项拿 LLM 和《经济学人》文章对比的研究，二手报道说 LLM 的逗号、分号和括号都比人少。https://biznews.com/tech/spot-ai-written-text 【转述】
+- 维基百科的 Signs of AI writing 没有把括号列为迹象，括号只作为人写时代替破折号的写法出现。【转述】
+- 我们观察到的是另一回事：在聊天回复和工作汇报里，AI 爱把补充说明、免责和改动记录塞进括号，被用户纠正之后尤其明显，比如“（没有使用××）”。这是维护者和我们自己检查回复时看到的，没有测量。【个人】
+
+所以第 10 条不限制括号这个符号，也不写“少用括号”，只管括号里放了什么：把括号盖住读一遍，少了也没影响的删掉，要紧的写成句子。
+
+**写代码时的文字**
+
+- Google 工程实践的 CL 描述指南：第一行用祈使句说清做了什么，只看这一行就要懂；正文说为什么，也说做法的缺点；“Fix bug”“Moving code from A to B”“Phase 1”都是反面例子；自动生成的改动也要遵守。https://google.github.io/eng-practices/review/developer/cl-descriptions.html 【原文】
+- Google 技术写作课的报错信息一节：好的报错要回答出了什么问题、用户怎么解决；常见毛病是没法操作、含糊、不准确、不说原因、不说下一步。https://developers.google.com/tech-writing/error-messages 【原文】
+- Watanabe 等分析了 5 个 AI 编程代理的 PR：各家的描述风格不同，这些差别和审查者的参与度、回复时间、合并结果有关。摘要没有给具体数字。https://arxiv.org/abs/2602.17084 【预印】
+- 几个清理“AI 痕迹”的 skill 把两类注释列为优先删除：复述代码的，以及叙述改动的（previously、no longer、updated to）；解释原因的注释保留。https://skillselion.com/skills/spences10/claude-code-toolkit/deslop 【转述】
+
+第 12 条和 `references/dev-writing.md` 据此写成。这一类文字还有一个问题：skill 只在 AI 认出这是写作任务时才加载，写代码的途中常常不加载，所以 README 里给了一段放进 `AGENTS.md` 或 `CLAUDE.md` 的常驻说明。
+
 ## 二、维基百科 Signs of AI writing【原文】
 
 https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
