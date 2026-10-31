@@ -17,7 +17,7 @@
 <p>
 <a href="#install"><img src="https://img.shields.io/badge/Agent%20Skills-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Copilot-4f46e5?style=flat-square" alt="Agent Skills：Claude Code、Codex、Cursor、Copilot"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/MIT%20License-334155?style=flat-square" alt="MIT license"></a>
-<a href="#results"><img src="https://img.shields.io/badge/%E8%87%AA%E6%B5%8B%3A%2052%2F52-16a34a?style=flat-square" alt="自测 52/52 条检查通过"></a>
+<a href="#results"><img src="https://img.shields.io/badge/%E7%AC%AC%203%20%E8%BD%AE%E8%87%AA%E6%B5%8B%3A%2052%2F52-16a34a?style=flat-square" alt="第 3 轮自测 52/52 条检查通过"></a>
 <a href="https://github.com/caredhieacid/talk-like-a-human/stargazers"><img src="https://img.shields.io/github/stars/caredhieacid/talk-like-a-human?style=flat-square&amp;color=f59e0b&amp;logo=github" alt="GitHub stars"></a>
 <a href="https://github.com/caredhieacid/talk-like-a-human/issues"><img src="https://img.shields.io/github/issues/caredhieacid/talk-like-a-human?style=flat-square&amp;color=0ea5e9&amp;logo=github" alt="GitHub issues"></a>
 </p>
@@ -26,7 +26,7 @@
 
 <a href="assets/promo-zh.mp4"><img src="assets/promo-zh-preview.webp" alt="宣传片片段：AI 为什么不说人话，以及这个 skill 怎么让 AI 写出读一遍就懂的话" width="100%"></a>
 
-<p><sub>▶ 点击上图观看完整宣传片（141 秒，有配乐）。依次讲 AI 写作的常见毛病、背后的原因，以及这个 skill 怎么改。</sub></p>
+<p><sub>▶ 点击上图观看完整宣传片，141 秒，有配乐。依次讲 AI 写作的常见毛病、背后的原因，以及这个 skill 怎么改。</sub></p>
 
 </div>
 
@@ -59,7 +59,7 @@ AI 写的东西常常让人读不懂：满是“赋能”“闭环”这类说�
 - <img src="assets/icons/pen.svg" width="18" height="18" alt="" align="absmiddle"> 句子通顺、完整。“对数据进行了清洗”写成“清洗了数据”，笔记里为了省字删掉的主语和“因为”“所以”会补回来。
 - <img src="assets/icons/link.svg" width="18" height="18" alt="" align="absmiddle"> 一个东西一个叫法。从头到尾用同一个名字，并且和项目里已有的叫法一致。
 - <img src="assets/icons/shield.svg" width="18" height="18" alt="" align="absmiddle"> 只写有根据的事。原文的数字原样保留，没给的数字和细节不编，推出来的会说明。
-- <img src="assets/icons/check-circle.svg" width="18" height="18" alt="" align="absmiddle"> 只留读者用得上的提醒。真正的不确定和风险写具体，只为给自己留后路的话删掉。[什么是防御性写法？](#defensive)
+- <img src="assets/icons/check-circle.svg" width="18" height="18" alt="" align="absmiddle"> 只留读者用得上的提醒。真正的不确定和风险写具体，只为给自己留后路的话删掉。[什么是防御性写作？](#defensive)
 - <img src="assets/icons/minus-circle.svg" width="18" height="18" alt="" align="absmiddle"> 去掉 AI 腔。“这不是……而是……”“这一点非常重要”这样的写法，读者一眼就能认出是 AI 写的，换成具体内容。
 - <img src="assets/icons/search.svg" width="18" height="18" alt="" align="absmiddle"> 不把话塞进括号。补充说明、免责和改动记录写成句子，或者删掉；缩写全称、单位这类短信息照常留。
 - <img src="assets/icons/compare.svg" width="18" height="18" alt="" align="absmiddle"> 不矫枉过正。指出问题后直接给改好的版本，不在里面注明“（没有××）”，也不改到另一个极端。[什么是矫枉过正？](#overcorrection)
@@ -92,7 +92,7 @@ mkdir -p ~/.agents/skills
 ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 ```
 
-用 Claude Code，就把两处 `~/.agents` 换成 `~/.claude`。同时用几个工具，每个目录各建一个链接。命令里的 `$PWD` 指当前目录，所以要在仓库目录里运行。
+用 Claude Code，就把两处 `~/.agents` 换成 `~/.claude`。同时用几个工具，每个目录各建一个链接。命令里的 `$PWD` 指当前目录，所以要在仓库目录里运行。装好后新开一个会话，工具才会读到它。
 
 > [!TIP]
 > 用链接安装的话，以后在仓库里运行 `git pull`，skill 会跟着更新。只想在某个项目里用，就把文件夹复制或链接到那个项目的 `.agents/skills/`（Claude Code 是 `.claude/skills/`）。
@@ -112,7 +112,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 支持斜杠命令的工具可以直接点名，比如在 Claude Code 里输入 `/talk-like-a-human 把上面那段改成人话`。
 
 > [!NOTE]
-> AI 不一定每次都会自己加载。之前的测试里，Codex 写任务完成后的汇报，3 次都没有加载；把写代码时的文字写进 skill 的描述以后，一个没提写作的修 bug 任务，3 次都加载了。想让每条回复都用上，在工具的全局说明文件里加一句：`写给人看的文字，包括注释、commit message 和 PR 描述，都按 talk-like-a-human skill 来写。` Claude Code 是 `~/.claude/CLAUDE.md`，Codex 是 `~/.codex/AGENTS.md`，其他工具见各自的文档。
+> AI 不一定每次都会自己加载。之前的测试里，Codex 写任务完成后的汇报，3 次都没有加载；在 skill 的描述里写明它也管注释和 commit message 以后，一个没提写作的修 bug 任务，3 次都加载了。想让每条回复都用上，在工具的全局说明文件里加一句：`写给人看的文字，包括注释、commit message 和 PR 描述，都按 talk-like-a-human skill 来写。` Claude Code 是 `~/.claude/CLAUDE.md`，Codex 是 `~/.codex/AGENTS.md`，其他工具见各自的文档。
 
 ## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> 效果与测试
 
@@ -200,18 +200,18 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 
 ### <a id="results"></a><a id="测试结果"></a>测试结果
 
-[`evals/`](talk-like-a-human/evals/) 里有 28 个测试用例、117 条检查项，其中 9 个是英文的。前 5 轮由编写 skill 的同一个 Claude 按检查项评分；第 6 轮是盲评，回答打乱后交给没参与测试的子代理评分。这些都是自测结果。前两轮用来修改规则，表里从第 3 轮开始；第 4、5、6 轮的对照组是不含这一轮新规则的上一版。
+[`evals/`](talk-like-a-human/evals/) 里有 28 个测试用例、117 条检查项，其中 9 个是英文的。前 5 轮由编写 skill 的同一个 Claude 按检查项评分；第 6 轮是盲评，回答打乱后交给没参与测试的子 agent 评分。这些都是自测结果。前两轮用来修改规则，表里从第 3 轮开始；第 4、5、6 轮的对照组是不含这一轮新规则的上一版。
 
 | 轮次 | 测什么 | 模型 | 对照组 | 装了 skill |
 | --- | --- | --- | :---: | :---: |
 | 第 3 轮 | 12 个基础用例：用词、句子、事实、叫法 | Claude Opus 5.5 | 不装：43 / 52 | **52 / 52** |
 | 第 4 轮 | 3 个用例：语病、矫枉过正 | Claude Opus 5.5 | 上一版：13 / 13 | 13 / 13 |
-| 第 5 轮 | 6 个用例：防御性写法、AI 腔 | Claude Opus 5.5 | 上一版：24 / 24 | 24 / 24 |
+| 第 5 轮 | 6 个用例：防御性写作、AI 腔 | Claude Opus 5.5 | 上一版：24 / 24 | 24 / 24 |
 | 第 5 轮 | LinkedIn 发布帖，跑 3 次 | Codex | 不装：3 次分别得 2、3、3 分（满分 4） | **3 次都全部通过** |
 | 第 6 轮 | 7 个用例：括号、注释、commit、PR、报错 | Claude Opus 5.5 | 上一版：26 / 28 | 26 / 28 |
 | 第 6 轮 | 同样 7 个用例，每个跑 2 次 | Codex | 不装：47 / 56；上一版：52 / 56 | **55 / 56** |
 
-第 4、5、6 轮新加的规则在 Claude 上还没测出效果，因为上一版规则已经接近全部通过。Codex 上差别明显：不装 skill 时，3 篇发布帖的结尾都是“Ideas don't wait for a connection”这类口号或“excited to”；第 6 轮里 PR 描述从 4 / 8 升到 8 / 8，commit message 从 6 / 8 升到 8 / 8。
+第 4、5、6 轮新加的规则在 Claude 上还没测出效果，因为上一版规则已经接近全部通过。Codex 上差别明显：不装 skill 时，3 篇发布帖的结尾都是“Ideas don't wait for a connection”这类口号或“excited to”；第 6 轮里，不装 skill 时 PR 描述得 4 / 8、commit message 得 6 / 8，装了新版都是 8 / 8。
 
 括号这条规则没有测出效果：把要点写成汇报时，不装 skill 的版本也很少用括号。这条来自我们在实际回复里看到的情况，没有测量。
 
@@ -219,7 +219,7 @@ ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 
 #### 复现测试
 
-测试用例用的是 `claude plugin eval` 的格式。用 Claude Code 2.1.269 或更新版本，从仓库根目录运行下面的命令就能复现（`--scaffold` 会自动准备测试需要的示例文件）。用其他工具的话，把用例里的 `prompt.md` 交给 AI，再按 `graders/` 里的标准检查回复。
+测试用例用的是 `claude plugin eval` 的格式。用 Claude Code 2.1.269 或更新版本，从仓库根目录运行下面的命令就能复现。`--scaffold` 会自动准备测试需要的示例文件。用其他工具的话，把用例里的 `prompt.md` 交给 AI，再按 `graders/` 里的标准检查回复。
 
 ```bash
 cd talk-like-a-human
@@ -252,9 +252,9 @@ AI 动笔前先想清楚结论和具体事实，写完再对照自查清单改�
 
 <p align="center"><b>想清楚</b> → <b>写出来</b> → <b>对照清单改一遍</b></p>
 
-完整规则和自查清单在 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。[`references/`](talk-like-a-human/references/) 里有中英文黑话对照表、防御性写法和 AI 腔的完整清单，以及注释、commit、PR、报错这些开发文字的写法，AI 需要时才去查。
+完整规则和自查清单在 [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md)。[`references/`](talk-like-a-human/references/) 里有中英文黑话对照表、防御性写作和 AI 腔的完整清单，以及注释、commit、PR、报错这些文字的写法，AI 需要时才去查。
 
-### <a id="defensive"></a>什么是防御性写法
+### <a id="defensive"></a>什么是防御性写作
 
 防御性的话是写的人为了“万一错了不怪我”加上去的，比如“仅供参考”“建议上线前充分测试”。读的人从里面得不到能用的信息；满篇都是提醒，反而分不清哪一句要紧。
 
@@ -270,7 +270,7 @@ AI 被指出问题后，常常改过了头。一种是改完了还在说自己�
 
 写文字也会这样，而且这类说明常常塞在括号里：
 
-| 改过头的写法（示意） | 应该的写法 |
+| 矫枉过正的写法（示意） | 应该的写法 |
 | --- | --- |
 | 以下是去掉黑话的版本：本周我们把投放数据和转化数据连了起来（没有使用“打通”“闭环”等说法）。 | 本周我们把投放数据和转化数据连了起来。 |
 
@@ -282,7 +282,7 @@ AI 被指出问题后，常常改过了头。一种是改完了还在说自己�
 
 ### 准备术语表
 
-先在你的项目里写一份术语表，规定每个东西叫什么（模板见 [`glossary-template.md`](talk-like-a-human/references/glossary-template.md)）：
+先在你的项目里写一份术语表，规定每个东西叫什么，模板见 [`glossary-template.md`](talk-like-a-human/references/glossary-template.md)：
 
 ```markdown
 | 标准叫法 | 不要用的叫法 | 例外 |
@@ -346,7 +346,7 @@ $ python3 ~/.agents/skills/talk-like-a-human/scripts/check_terms.py --glossary G
 
 humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主要改你贴进去的稿子，目标是让文字看起来不像 AI 写的，有些还会禁用破折号、轮换近义词。
 
-这个 skill 管 AI 写的所有文字，目标是读一遍就懂。它也去 AI 腔，但只改让文字变空的写法。同一个东西始终用同一个名字，因为换了名字，读者会以为说的是另一样东西。
+这个 skill 管 AI 写的所有文字，目标是读一遍就懂。它也去 AI 腔，但只改不传递信息的写法。同一个东西始终用同一个名字，因为换了名字，读者会以为说的是另一样东西。
 
 </details>
 
@@ -365,7 +365,7 @@ humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主�
 | [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) | <img src="https://img.shields.io/github/stars/conorbronsdon/avoid-ai-writing?style=flat-square&amp;logo=github&amp;label=" alt="conorbronsdon/avoid-ai-writing 的 GitHub star 数"> | AI 会换个近义词绕开禁用词表；“不是……而是……”人也常用，只有固定几种句式才算 AI 腔 |
 | [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) | <img src="https://img.shields.io/github/stars/larashero3-dotcom/lieflat-less-ai-tone?style=flat-square&amp;logo=github&amp;label=" alt="larashero3-dotcom/lieflat-less-ai-tone 的 GitHub star 数"> | 拿人写的文章对照：人比 AI 更常重复同一个名词，“一、二、三”小标题和“这意味着”人也常用 |
 | [lennney/stop-that-shit](https://github.com/lennney/stop-that-shit) | <img src="https://img.shields.io/github/stars/lennney/stop-that-shit?style=flat-square&amp;logo=github&amp;label=" alt="lennney/stop-that-shit 的 GitHub star 数"> | 处理防御性的话的四种办法：删掉、只留一处、挪到被限定的句子旁边、留下并写具体 |
-| [MrGeDiao/shuorenhua](https://github.com/MrGeDiao/shuorenhua) | <img src="https://img.shields.io/github/stars/MrGeDiao/shuorenhua?style=flat-square&amp;logo=github&amp;label=" alt="MrGeDiao/shuorenhua 的 GitHub star 数"> | 默认少改；轮换近义词反而加重 AI 味；要求“别吹”时只去掉表示程度的夸饰 |
+| [MrGeDiao/shuorenhua](https://github.com/MrGeDiao/shuorenhua) | <img src="https://img.shields.io/github/stars/MrGeDiao/shuorenhua?style=flat-square&amp;logo=github&amp;label=" alt="MrGeDiao/shuorenhua 的 GitHub star 数"> | 默认少改；轮换近义词反而加重 AI 腔；要求“别吹”时只去掉表示程度的夸饰 |
 | [Kiterlin/anti-defensive-writing](https://github.com/Kiterlin/anti-defensive-writing) | <img src="https://img.shields.io/github/stars/Kiterlin/anti-defensive-writing?style=flat-square&amp;logo=github&amp;label=" alt="Kiterlin/anti-defensive-writing 的 GitHub star 数"> | 什么是防御性写作；影响结论和安全的限定要留下，只写一次 |
 | [Raymondhou0917/speak-human-tw](https://github.com/Raymondhou0917/speak-human-tw) | <img src="https://img.shields.io/github/stars/Raymondhou0917/speak-human-tw?style=flat-square&amp;logo=github&amp;label=" alt="Raymondhou0917/speak-human-tw 的 GitHub star 数"> | 改稿前先圈出数字、专名、原话这些不能动的内容 |
 
@@ -392,12 +392,14 @@ humanizer（GitHub 上很热门的一个英文改写 skill）这类工具，主�
 talk-like-a-human/
 ├── talk-like-a-human/          # skill 文件夹，安装的就是它
 │   ├── SKILL.md                # 规则、例子和自查清单
-│   ├── references/             # 中英文黑话对照表、防御性写法和 AI 腔清单、术语表模板
+│   ├── references/             # 中英文黑话对照表、防御性写作和 AI 腔清单、术语表模板
 │   ├── scripts/check_terms.py  # 检查叫法是否统一的脚本
 │   └── evals/                  # 28 个测试用例
 ├── research/                   # 两份调研报告
 ├── assets/                     # README 用的图片
 ├── .github/                    # 自动检查、CODEOWNERS、PR 模板
+├── GLOSSARY.md                 # 这个仓库自己的术语表，自动检查会用
+├── AGENTS.md                   # 给在这个仓库工作的 AI 的说明
 └── CONTRIBUTING.md             # 参与贡献和合并规则
 ```
 

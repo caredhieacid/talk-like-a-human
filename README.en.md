@@ -17,7 +17,7 @@
 <p>
 <a href="#install"><img src="https://img.shields.io/badge/Agent%20Skills-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Copilot-4f46e5?style=flat-square" alt="Agent Skills: Claude Code, Codex, Cursor, Copilot"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/MIT%20License-334155?style=flat-square" alt="MIT license"></a>
-<a href="#results"><img src="https://img.shields.io/badge/Self--tested%3A%2052%2F52-16a34a?style=flat-square" alt="Self-tested: 52/52 checks"></a>
+<a href="#results"><img src="https://img.shields.io/badge/Round%203%20self--test%3A%2052%2F52-16a34a?style=flat-square" alt="Round 3 self-test: 52/52 checks"></a>
 <a href="https://github.com/caredhieacid/talk-like-a-human/stargazers"><img src="https://img.shields.io/github/stars/caredhieacid/talk-like-a-human?style=flat-square&amp;color=f59e0b&amp;logo=github" alt="GitHub stars"></a>
 <a href="https://github.com/caredhieacid/talk-like-a-human/issues"><img src="https://img.shields.io/github/issues/caredhieacid/talk-like-a-human?style=flat-square&amp;color=0ea5e9&amp;logo=github" alt="GitHub issues"></a>
 </p>
@@ -26,7 +26,7 @@
 
 <a href="assets/promo-en.mp4"><img src="assets/promo-en-preview.webp" alt="Promo clip: why AI doesn’t talk like a human, and how this skill fixes it" width="100%"></a>
 
-<p><sub>▶ Click to watch the full promo video (141 seconds, with music). It shows the common problems in AI writing, why they happen, and how this skill fixes them.</sub></p>
+<p><sub>▶ Click to watch the full promo video. It runs 141 seconds, with music. It shows the common problems in AI writing, why they happen, and how this skill fixes them.</sub></p>
 
 </div>
 
@@ -92,7 +92,7 @@ mkdir -p ~/.agents/skills
 ln -s "$PWD/talk-like-a-human" ~/.agents/skills/talk-like-a-human
 ```
 
-For Claude Code, replace both `~/.agents` with `~/.claude`. If you use several tools, create a link in each folder. `$PWD` means the current folder, so run the command inside the repo.
+For Claude Code, replace both `~/.agents` with `~/.claude`. If you use several tools, create a link in each folder. `$PWD` means the current folder, so run the command inside the repo. Start a new session afterwards so the tool picks up the skill.
 
 > [!TIP]
 > With a link, running `git pull` in the repo updates the skill. To use it in one project only, copy or link the folder into that project's `.agents/skills/` (`.claude/skills/` for Claude Code).
@@ -103,7 +103,7 @@ The folders in the table come from each tool's official docs as of October 2026.
 
 ### Use
 
-Once installed, the AI applies the rules when it decides they're relevant. You can also ask directly:
+Once the skill is installed, the AI applies the rules when it decides they're relevant. You can also ask directly:
 
 - "Rewrite this in plain English"
 - "My manager can't follow this report, fix it"
@@ -112,7 +112,7 @@ Once installed, the AI applies the rules when it decides they're relevant. You c
 In tools with slash commands you can call it by name, for example `/talk-like-a-human rewrite the paragraph above` in Claude Code.
 
 > [!NOTE]
-> The AI doesn't always load the skill on its own. In earlier tests, Codex didn't load it in any of 3 end-of-task reports. After we added text written while coding to the skill's description, it loaded the skill in all 3 runs of a bug-fix task that never mentioned writing. To use it for every reply, add this line to your tool's global instructions file: `Write everything meant for people, including comments, commit messages and PR descriptions, according to the talk-like-a-human skill.` That's `~/.claude/CLAUDE.md` for Claude Code and `~/.codex/AGENTS.md` for Codex; see your tool's docs for others.
+> The AI doesn't always load the skill on its own. In earlier tests, Codex didn't load it in any of 3 end-of-task reports. After we said in the skill's description that it also covers comments and commit messages, Codex loaded it in all 3 runs of a bug-fix task that never mentioned writing. To use it for every reply, add this line to your tool's global instructions file: `Write everything meant for people, including comments, commit messages and PR descriptions, according to the talk-like-a-human skill.` That's `~/.claude/CLAUDE.md` for Claude Code and `~/.codex/AGENTS.md` for Codex; see your tool's docs for others.
 
 ## <a id="evidence"></a><img src="assets/icons/chart.svg" width="22" height="22" alt="" align="absmiddle"> Examples and evaluation
 
@@ -192,7 +192,7 @@ The message puts back who does what, and the "so" that links cause and effect. "
 | 6 | 7 cases: asides, comments, commits, PRs, errors | Claude Opus 5.5 | Previous version: 26 / 28 | 26 / 28 |
 | 6 | Same 7 cases, 2 runs each | Codex | Without: 47 / 56; previous version: 52 / 56 | **55 / 56** |
 
-The rules added in rounds 4, 5 and 6 haven't shown an effect on Claude yet, because the previous version already passes nearly all of those cases. On Codex the difference is clear: without the skill, all 3 launch posts ended on a slogan such as "Ideas don't wait for a connection" or on "excited to", and in round 6 PR descriptions went from 4 / 8 to 8 / 8 and commit messages from 6 / 8 to 8 / 8.
+The rules added in rounds 4, 5 and 6 haven't shown an effect on Claude yet, because the previous version already passes nearly all of those cases. On Codex the difference is clear: without the skill, all 3 launch posts ended on a slogan such as "Ideas don't wait for a connection" or on "excited to", and in round 6, PR descriptions scored 4 / 8 and commit messages 6 / 8 without the skill, and both scored 8 / 8 with the new version.
 
 The rule about parentheses showed no effect: when turning notes into a report, models rarely used asides even without the skill. The rule comes from what we saw in real replies, not from a measurement.
 
@@ -200,7 +200,7 @@ In round 3, each case took 72 seconds and about 67,000 tokens on average with th
 
 #### Run the tests yourself
 
-The test cases use the `claude plugin eval` format. With Claude Code 2.1.269 or later, run the commands below from the repo root to reproduce the evaluation (`--scaffold` prepares the sample files the tests need). With other tools, give a case's `prompt.md` to the AI and check the reply against the files in `graders/`.
+The test cases use the `claude plugin eval` format. With Claude Code 2.1.269 or later, run the commands below from the repo root to reproduce the evaluation. `--scaffold` prepares the sample files the tests need. With other tools, give a case's `prompt.md` to the AI and check the reply against the files in `graders/`.
 
 ```bash
 cd talk-like-a-human
@@ -227,17 +227,17 @@ Sources for each cause are in [`research/why-ai-writes-this-way.md`](research/wh
 
 ### <a id="process"></a>How the skill makes the AI write
 
-Before writing, the AI works out the conclusion and the specific facts. After writing, it goes through a checklist and revises. For a long, important document, if the tool can start a subagent, it also has a fresh AI that hasn't seen the conversation read it; whatever that reader gets wrong or can't follow is what needs fixing.
+Before writing, the AI works out the conclusion and the specific facts. After writing, it goes through a checklist and revises. For a long, important document, if the tool can start a subagent, the AI also asks a fresh AI that hasn't seen the conversation to read the document; whatever that reader gets wrong or can't follow is what needs fixing.
 
 <img src="assets/writing-workflow-v2.jpg" alt="The writing process: work out what to say, write it, then revise against the checklist" width="100%">
 
 <p align="center"><b>Work out what to say</b> → <b>Write it</b> → <b>Revise against the checklist</b></p>
 
-The full rules and checklist are in [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md), written mostly in Chinese with English sections and examples. [`references/`](talk-like-a-human/references/) holds the buzzword lists, the full lists of defensive phrases and AI patterns, and guides for comments, commits, PRs and error messages, each with English examples. The AI reads them when it needs them.
+The full rules and checklist are in [`talk-like-a-human/SKILL.md`](talk-like-a-human/SKILL.md), written mostly in Chinese with English sections and examples. [`references/`](talk-like-a-human/references/) holds the buzzword lists, the full lists of defensive lines and AI tone, and guides for comments, commits, PRs and error messages, each with English examples. The AI reads them when it needs them.
 
 ### <a id="defensive"></a>What is defensive writing
 
-Defensive lines are the ones a writer adds so that, if something goes wrong, "I warned you": "for reference only", "please test thoroughly before deploying". The reader learns nothing they can act on, and when every sentence carries a warning, it's hard to tell which one matters.
+Defensive lines are the ones a writer adds so they can say "I warned you" if something goes wrong: "for reference only", "please test thoroughly before deploying". The reader learns nothing they can act on, and when every sentence carries a warning, it's hard to tell which one matters.
 
 | Defensive (illustrative) | What it should be |
 | --- | --- |
@@ -263,7 +263,7 @@ In a large project, different people end up calling the same thing by different 
 
 ### Create a glossary
 
-First write a glossary for your project (see the [template](talk-like-a-human/references/glossary-template.md)). Column headers can be in English or Chinese:
+First write a glossary for your project, using the [template](talk-like-a-human/references/glossary-template.md). Column headers can be in English or Chinese:
 
 ```markdown
 | Use | Avoid | Exceptions |
@@ -276,7 +276,7 @@ The Exceptions column lists phrases where an avoided word is fine. Here, "space"
 
 ### Run the check
 
-Run the script in your project folder, replacing `GLOSSARY.md` and `docs/` with your own glossary and folders (and the script path, if you installed the skill elsewhere). It needs only Python 3. Here is the output from a sample project:
+Run the script in your project folder, replacing `GLOSSARY.md` and `docs/` with your own glossary and folders. If you installed the skill elsewhere, change the script path too. It needs only Python 3. Here is the output from a sample project:
 
 ```console
 $ python3 ~/.agents/skills/talk-like-a-human/scripts/check_terms.py --glossary GLOSSARY.md docs/
@@ -311,7 +311,7 @@ Terse notes get a little longer, because subjects and words like "because" and "
 <details>
 <summary><b>Does it help if I only write in English?</b></summary>
 
-Yes. The rules cover English writing and include an English buzzword list and English examples of defensive writing and AI patterns. Nine of the 28 test cases are in English. The rulebook itself is mostly in Chinese, and the name-checking script reports in Chinese.
+Yes. The rules cover English writing and include an English buzzword list and English examples of defensive writing and AI tone. Nine of the 28 test cases are in English. The rulebook itself is mostly in Chinese, and the name-checking script reports in Chinese.
 
 </details>
 
@@ -320,7 +320,7 @@ Yes. The rules cover English writing and include an English buzzword list and En
 
 Tools like [humanizer](https://github.com/blader/humanizer) mainly rewrite text you paste in so that it doesn't read like AI; some also ban dashes or rotate synonyms.
 
-This skill covers everything the AI writes, and the goal is text people understand on the first read. It removes AI tone too, but only the patterns that empty out the text. It keeps one name for each thing, because a new name makes readers think you mean a different thing.
+This skill covers everything the AI writes, and the goal is text people understand on the first read. It removes AI tone too, but only the patterns that tell the reader nothing. It keeps one name for each thing, because a new name makes readers think you mean a different thing.
 
 </details>
 

@@ -7,6 +7,7 @@
 4. check_terms.py still finds a wrong name and passes a clean document.
 5. Skill files contain no commands that download or run remote code. Agents read these
    files as instructions, so a line like `curl … | sh` there would be a real risk.
+6. Our own documents use the names in GLOSSARY.md.
 """
 import re
 import subprocess
@@ -102,7 +103,20 @@ def check_risky_commands() -> None:
                     fail(f"{f.relative_to(ROOT)}:{n}: command that downloads or runs remote code: {line.strip()[:120]}")
 
 
-for step in (check_frontmatter, check_links, check_evals, check_term_checker, check_risky_commands):
+# Eval prompts are left out: they contain the bad wording on purpose.
+OUR_TEXT = ["README.md", "README.en.md", "CONTRIBUTING.md", "AGENTS.md", ".github/pull_request_template.md", "talk-like-a-human/SKILL.md", "talk-like-a-human/references", "research"]
+
+
+def check_our_names() -> None:
+    result = subprocess.run(
+        [sys.executable, str(SKILL / "scripts" / "check_terms.py"), "--glossary", "GLOSSARY.md", *OUR_TEXT],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    if result.returncode != 0:
+        fail(f"names differ from GLOSSARY.md:\n{result.stdout.strip()}")
+
+
+for step in (check_frontmatter, check_links, check_evals, check_term_checker, check_risky_commands, check_our_names):
     step()
 
 if errors:

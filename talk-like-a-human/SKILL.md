@@ -1,6 +1,6 @@
 ---
 name: talk-like-a-human
-description: 像人一样说话（talk like a human）。让 AI 写给人看的文字用平实、准确、读一遍就懂的中文或英文：不用黑话、空话和比喻代替直说，不自造词，不用翻译腔，不出语病，不为了省字硬删词，同一个东西在整个项目里只用一个叫法；不写只为给自己留后路的防御性的话（笼统免责、层层“可能”、预先辩解、空泛提醒、多余道歉），去掉成批出现的 AI 腔（先否定没人说过的说法再亮观点、替读者点明意义、短文切成好几节、套话开头结尾、凑数排比、空洞夸饰），不把补充说明和改动记录塞进括号；被指出问题后直接改好，不矫枉过正。只要是给人读的文字就用这个技能，包括聊天回复、工作汇报、总结、方案、文档、README、对外通知和宣传文案，也包括写代码时顺带写的注释、commit message、PR 描述、审查评论、changelog、界面文案、报错信息和日志。用户说“说人话”“看不懂”“太绕了”“读着别扭”“读不通”“有语病”“像电报”“AI 味太重”“去 AI 味”“像客服”“免责声明太多”“全是可能”“黑话太多”“改过头了”“括号太多”“plain English”“no jargon”“too many caveats”“stop hedging”“this reads like AI”，或者让你改写、润色、审阅一段文字，或者在大型项目里写文档、给新概念起名、发现同一个东西有好几种叫法时，一定要用。In English: use this skill for any text a person will read, including chat answers, status reports, docs, notices and social posts, and while coding: comments, commit messages, PR descriptions, error messages and the final summary of a task. It removes buzzwords, hedging and AI-sounding patterns.
+description: 像人一样说话（talk like a human）。让 AI 写给人看的文字用平实、准确、读一遍就懂的中文或英文：不用黑话、空话和比喻代替直说，不自造词，不用翻译腔，不出语病，不为了省字硬删词，同一个东西在整个项目里只用一个叫法；不写只为给自己留后路的防御性的话（笼统免责、层层“可能”、预先辩解、空泛提醒、多余道歉），去掉成批出现的 AI 腔（先否定没人说过的说法再亮观点、替读者点明意义、短文切成好几节、套话开头结尾、凑数排比、空洞夸饰），不把补充说明和改动记录塞进括号；被指出问题后直接改好，不矫枉过正。只要是给人读的文字就用这个 skill，包括聊天回复、工作汇报、总结、方案、文档、README、对外通知和宣传文案，也包括写代码时顺带写的注释、commit message、PR 描述、审查评论、changelog、界面文案、报错信息和日志。用户说“说人话”“看不懂”“太绕了”“读着别扭”“读不通”“有语病”“像电报”“AI 味太重”“去 AI 味”“像客服”“免责声明太多”“全是可能”“黑话太多”“改过头了”“括号太多”“plain English”“no jargon”“too many caveats”“stop hedging”“this reads like AI”，或者让你改写、润色、审阅一段文字，或者在大型项目里写文档、给新概念起名、发现同一个东西有好几种叫法时，一定要用。In English: use this skill for any text a person will read, including chat answers, status reports, docs, notices and social posts, and while coding: comments, commit messages, PR descriptions, error messages and the final summary of a task. It removes buzzwords, hedging and AI tone.
 ---
 
 # 像人一样说话（talk-like-a-human）
@@ -125,9 +125,9 @@ commit 标题、表格单元格、按钮文字这些本来就短的格式，照�
 
 ```bash
 # 统计每种叫法用了几次、在哪些文件
-python3 <本技能目录>/scripts/check_terms.py --glossary GLOSSARY.md --count docs/ src/
+python3 <skill 目录>/scripts/check_terms.py --glossary GLOSSARY.md --count docs/ src/
 # 找出用了“不要用的叫法”的地方；发现了退出码是 1，可以放进 CI。加 --jargon 会顺便标出常见黑话
-python3 <本技能目录>/scripts/check_terms.py --glossary GLOSSARY.md docs/ src/
+python3 <skill 目录>/scripts/check_terms.py --glossary GLOSSARY.md docs/ src/
 ```
 
 ## 7. 先说结论，说具体的
@@ -305,5 +305,5 @@ AI 写着写着想起一点补充，常常顺手塞进括号。一句话没说�
 - 有没有只为给自己留后路的话：笼统免责、层层“可能”、预先辩解、空泛提醒、多余道歉？确实不确定的地方，有没有说清哪里不确定、怎么确认？
 - 有没有成批出现的 AI 套路：先否定没人说过的说法、替读者点明意义、短文切成好几节、用冒号卖关子、套话开头结尾、凑数排比、纯程度的夸饰？
 - 有没有塞进括号的补充说明、免责和改动记录？把括号盖住读一遍，少了也没影响的删掉，要紧的写成句子。
-- 按用户意见改过的地方，有没有留下“（没有××）”“不含××”这类说明，或者改过头变成了另一个毛病？
+- 按用户意见改过的地方，有没有留下“（没有××）”“不含××”这类说明，或者矫枉过正变成了另一个毛病？
 - 写在代码和仓库里的文字，没看过这次对话的人读得懂吗？注释有没有复述代码、留下改动记录？没跑过的测试有没有写成通过？
