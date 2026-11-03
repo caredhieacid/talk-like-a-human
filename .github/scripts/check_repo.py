@@ -98,6 +98,16 @@ def check_term_checker() -> None:
         good = run(docs / "good.md")
         if good.returncode != 0:
             fail(f"check_terms.py: clean document should pass, got exit {good.returncode}: {good.stdout.strip()}")
+        # a glossary it can't use must fail loudly, not pass with nothing checked
+        broken = {
+            "renamed headers": "| 推荐叫法 | 别用 |\n| --- | --- |\n| 工作区 | 空间 |\n",
+            "a term in two rows": "| 标准叫法 | 不要用的叫法 |\n| --- | --- |\n| 工作区 | 空间 |\n| 成员 | 组员、空间 |\n",
+        }
+        for what, table in broken.items():
+            (t / "GLOSSARY.md").write_text(table, encoding="utf-8")
+            r = run(docs / "bad.md")
+            if r.returncode != 2:
+                fail(f"check_terms.py: a glossary with {what} should exit 2, got exit {r.returncode}: {r.stderr.strip()}")
 
 
 RISKY = re.compile(r"(curl|wget)[^\n|]*\|\s*(ba|z)?sh|base64\s+(-d|--decode)|\beval\s*\(|Invoke-WebRequest|iex\s*\(", re.I)

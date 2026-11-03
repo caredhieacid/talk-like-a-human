@@ -309,7 +309,7 @@ docs/members.md:1: 用了「teammate」，统一用「member」
 叫法不统一 3 处
 ```
 
-The script reports in Chinese. Each line means "used X, use Y instead", and the last line says how many problems it found. When it finds any, it exits with code 1, so a CI check can stop the change.
+The script reports in Chinese. Each line means "used X, use Y instead", and the last line says how many problems it found. When it finds any, it exits with code 1, so a CI check can stop the change. If the glossary itself is broken, for example a renamed header or the same name in two rows, it says what's wrong and exits with code 2 instead of silently checking nothing.
 
 ### Count term usage
 
