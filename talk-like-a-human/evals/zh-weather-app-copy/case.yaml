@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-weather-app-copy
+expected_outcome: |
+  两句文案都用给出的数据，60% 的版本直接告诉用户带伞，没有“仅供参考”这类免责。

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-small-talk-launch
+expected_outcome: |
+  像同事一样接话。不用“还不能说明”这类话削弱用户的判断；想提醒，就给一个具体的下一步。几句话以内。

@@ -10,3 +10,5 @@
 | 矫枉过正 | 改过头 | 改过头了 | 改完还在说自己改过，或者从一个毛病跳到反面的毛病。例外是用户的原话 |
 | 子 agent | 子代理 | | 主 AI 另开的、不带当前对话上下文的 AI |
 | AI tone | AI pattern, AI-sounding pattern | | “AI 腔”的英文叫法 |
+| 常驻规则 | 核心规则、全局规则 | | `core.md` 里的十来行规则。`install.py` 把它写进工具的全局说明文件，每次对话都会读到 |
+| always-on rules | core rules | | “常驻规则”的英文叫法 |

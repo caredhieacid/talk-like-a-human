@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-small-talk-coffee
+expected_outcome: |
+  像朋友一样接话，不去挑用户这个小推论严不严谨，几句话以内。
