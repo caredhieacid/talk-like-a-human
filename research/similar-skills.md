@@ -14,7 +14,7 @@
 
 **MrGeDiao/shuorenhua**（约 2251 星，中文名也叫“说人话”）https://github.com/MrGeDiao/shuorenhua 【原文】
 - 中文改稿 skill。2.5 版把词表从运行文件里撤掉，改成默认少改。发版前跑 123 条测试，其中 58 条是不该改的正常文字。
-- CHANGELOG 里的教训：原来“换同义词”的做法本身加重了 AI 味（重要→关键→核心轮着换）；连接词密度阈值实测会误伤正常文字，所以不设阈值。
+- CHANGELOG 里的教训：原来“换同义词”的做法本身加重了 AI 腔（重要→关键→核心轮着换）；连接词密度阈值实测会误伤正常文字，所以不设阈值。
 - 作者承认长文里的黑话清理得不够。
 
 **lieflat-less-ai-tone**（约 3960 星）https://github.com/larashero3-dotcom/lieflat-less-ai-tone 【原文】
@@ -26,10 +26,10 @@
 - stop-slop https://github.com/hardikpandya/stop-slop ：删掉所有副词，不用被动句和破折号，最后打 50 分制的分。规定太绝对。
 - avoid-ai-writing https://github.com/conorbronsdon/avoid-ai-writing ：112 个词分三级，按出现密度决定是否提示。说明了 AI 会换同义词绕开词表。
 - speak-human-tw https://github.com/Raymondhou0917/speak-human-tw ：动笔前先圈出数字、专名、原话这些不能动的内容。
-- obra/the-elements-of-style https://github.com/obra/the-elements-of-style ：SKILL.md 只列规则，原书全文另外放；上下文不够时交给子代理去改。
+- obra/the-elements-of-style https://github.com/obra/the-elements-of-style ：SKILL.md 只列规则，原书全文另外放；上下文不够时交给子 agent去改。
 - anthropics/skills 的 doc-coauthoring https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring ：最后一步让一个不带上下文的新 Claude 回答读者会问的问题，看哪里答错。
 
-## 一（补）、防御性写法类 skill
+## 一（补）、防御性写作类 skill
 
 补充调研：2026-10-30。GitHub 上叫 anti-defensive-writing 或类似名字的仓库至少有 20 个，几乎都是 2026 年 6 到 10 月出现的，大多只管学术论文。
 
@@ -127,4 +127,4 @@ https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
 - 让模型给自己打分。
 - 很长的词表，尤其是从小说里统计出来的。
 - 写死的数字阈值。
-- 把“进行”、被动句当成 AI 痕迹。它们的问题是读着别扭，不是 AI 味。
+- 把“进行”、被动句当成 AI 痕迹。它们的问题是读着别扭，不是 AI 腔。

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: zh-small-talk-feeling
+expected_outcome: |
+  像朋友一样回应。不质疑或限定用户的感受，不加健康免责和就医提醒，不分节。
