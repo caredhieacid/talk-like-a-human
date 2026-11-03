@@ -9,7 +9,9 @@
 
 术语表格式见 ../references/glossary-template.md。
 检查模式下，发现“不要用的叫法”时退出码为 1，方便放进 CI；黑话只是提示，不影响退出码。
---count 只统计每种叫法出现的次数和文件，退出码总是 0，适合还没定标准叫法的时候用。
+术语表本身有问题时退出码为 2，不做检查：找不到表头含“标准叫法”和“不要用的叫法”的表格，
+某个表格只认出其中一列，或者同一个叫法写在了不止一行里。
+--count 只统计每种叫法出现的次数和文件，术语表没问题时退出码总是 0，适合还没定标准叫法的时候用。
 某一行含有 "check-terms: ignore" 时跳过这一行；
 "check-terms: off" 和 "check-terms: on" 之间的内容整段跳过。
 只用 Python 标准库。
@@ -62,18 +64,20 @@ def split_row(line):
 
 
 def iter_tables(text):
-    """逐个返回 Markdown 表格的 (表头, 数据行)。"""
+    """逐个返回 Markdown 表格的 (表头, 数据行, 每个数据行在文件里的行号)。"""
     lines = text.splitlines()
     i = 0
     while i < len(lines) - 1:
         if lines[i].strip().startswith("|") and SEP_ROW_RE.match(lines[i + 1].strip()):
             header = split_row(lines[i])
             rows = []
+            numbers = []
             j = i + 2
             while j < len(lines) and lines[j].strip().startswith("|"):
                 rows.append(split_row(lines[j]))
+                numbers.append(j + 1)
                 j += 1
-            yield header, rows
+            yield header, rows, numbers
             i = j
         else:
             i += 1
@@ -112,16 +116,23 @@ def find_column(keys, names):
 
 
 def load_glossary(path):
-    """返回术语表的每一行：{preferred, aliases, exceptions}，后两项是 [(词, 匹配规则)]。"""
+    """返回 (术语表的每一行, 只认出一列的表格的行号)。
+
+    每一行是 {preferred, aliases, exceptions, line}，aliases 和 exceptions 是 [(词, 匹配规则)]。
+    """
     rows = []
-    for header, table in iter_tables(path.read_text(encoding="utf-8")):
+    half_tables = []
+    for header, table, numbers in iter_tables(path.read_text(encoding="utf-8")):
         keys = [h.lower() for h in header]
         pi = find_column(keys, PREFERRED_HEADERS)
         ai = find_column(keys, AVOID_HEADERS)
         ei = find_column(keys, EXCEPTION_HEADERS)
         if pi is None or ai is None:
+            # 只认出一列，多半是另一列的表头被改了名；两列都没有的是别的表格，不管
+            if pi is not None or ai is not None:
+                half_tables.append(numbers[0] - 2 if numbers else 0)
             continue
-        for cells in table:
+        for cells, line in zip(table, numbers):
             if len(cells) <= max(pi, ai):
                 continue
             preferred = split_terms(cells[pi])
@@ -132,8 +143,27 @@ def load_glossary(path):
                 "preferred": (preferred[0], build_pattern(preferred[0])),
                 "aliases": [(a, build_pattern(a)) for a in split_terms(cells[ai])],
                 "exceptions": [(e, build_pattern(e)) for e in exceptions],
+                "line": line,
             })
-    return rows
+    return rows, half_tables
+
+
+def glossary_problems(rows):
+    """同一个叫法写在不止一行里，脚本就不知道该统一成哪个。返回问题说明的列表。"""
+    problems = []
+    where = defaultdict(list)
+    for row in rows:
+        preferred = row["preferred"][0]
+        aliases = [a for a, _ in row["aliases"]]
+        if preferred.lower() in {a.lower() for a in aliases}:
+            problems.append(f"第 {row['line']} 行：「{preferred}」既是标准叫法，又写在了不要用的叫法里")
+        for name in dict.fromkeys([preferred] + aliases):
+            where[name.lower()].append((name, row["line"]))
+    for entries in where.values():
+        lines = sorted({n for _, n in entries})
+        if len(lines) > 1:
+            problems.append(f"「{entries[0][0]}」写在了第 {'、'.join(map(str, lines))} 行，同一个叫法只能出现在一行里")
+    return problems
 
 
 def load_jargon():
@@ -142,7 +172,7 @@ def load_jargon():
     for path in JARGON_FILES:
         if not path.exists():
             continue
-        for header, rows in iter_tables(path.read_text(encoding="utf-8")):
+        for header, rows, _ in iter_tables(path.read_text(encoding="utf-8")):
             if not header or header[0].lower() not in JARGON_HEADERS:
                 continue
             for row in rows:
@@ -273,10 +303,17 @@ def main():
         gpath = Path(args.glossary)
         if not gpath.is_file():
             parser.error(f"找不到术语表：{gpath}")
-        rows = load_glossary(gpath)
+        rows, half_tables = load_glossary(gpath)
         excluded.add(gpath.resolve())
-        if not rows:
-            print(f"提示：{gpath} 里没找到表头含“标准叫法”和“不要用的叫法”的表格。", file=sys.stderr)
+        problems = [f"第 {n} 行的表格只认出了一列，表头要同时有“标准叫法”和“不要用的叫法”，英文是 Use 和 Avoid" for n in half_tables]
+        if not rows and not problems:
+            problems.append("没找到表头含“标准叫法”和“不要用的叫法”的表格，英文表头是 Use 和 Avoid。看看表头是不是改了名")
+        problems += glossary_problems(rows)
+        if problems:
+            for p in problems:
+                print(f"{gpath}：{p}", file=sys.stderr)
+            print("术语表有问题，没有做检查。改好术语表再运行。", file=sys.stderr)
+            return 2
     terms = build_term_list(rows)
     jargon = load_jargon() if args.jargon else []
 

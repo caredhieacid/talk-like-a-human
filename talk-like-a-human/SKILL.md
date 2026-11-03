@@ -126,7 +126,7 @@ commit 标题、表格单元格、按钮文字这些本来就短的格式，照�
 ```bash
 # 统计每种叫法用了几次、在哪些文件
 python3 <skill 目录>/scripts/check_terms.py --glossary GLOSSARY.md --count docs/ src/
-# 找出用了“不要用的叫法”的地方；发现了退出码是 1，可以放进 CI。加 --jargon 会顺便标出常见黑话
+# 找出用了“不要用的叫法”的地方；发现了退出码是 1，术语表本身写错了是 2，可以放进 CI。加 --jargon 会顺便标出常见黑话
 python3 <skill 目录>/scripts/check_terms.py --glossary GLOSSARY.md docs/ src/
 ```
 
