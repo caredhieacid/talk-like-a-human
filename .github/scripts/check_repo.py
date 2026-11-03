@@ -33,6 +33,14 @@ def check_frontmatter() -> None:
     fields = dict(re.findall(r"^(\w[\w-]*):\s*(.*)$", m.group(1), re.M))
     name = fields.get("name", "")
     desc = fields.get("description", "")
+    # Tools such as `npx skills` parse the frontmatter as strict YAML. Unquoted, a ": " or " #" in the
+    # description breaks it, so keep the value in double quotes.
+    if desc[:1] == '"':
+        if len(desc) < 2 or desc[-1] != '"' or re.search(r'(?<!\\)"', desc[1:-1]):
+            fail('SKILL.md: description must be one double-quoted string; escape any " inside it as \\"')
+        desc = desc[1:-1]
+    elif ": " in desc or " #" in desc:
+        fail('SKILL.md: description contains ": " or " #", which is invalid YAML unless the value is in double quotes')
     if name != SKILL.name:
         fail(f"SKILL.md: name is '{name}', expected the folder name '{SKILL.name}'")
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", name) or len(name) > 64:
